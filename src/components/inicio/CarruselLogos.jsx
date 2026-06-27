@@ -1,7 +1,7 @@
 import { CLIENTES } from '../../data/clientes.js'
 import './CarruselLogos.css'
 
-// Carrusel infinito (marquee) con los lugares donde trabajó Etán.
+// Carrusel infinito (marquee) con los logos de los lugares donde trabajó Etán.
 // Se duplica la lista para que el desplazamiento sea continuo.
 export default function CarruselLogos() {
   const lista = [...CLIENTES, ...CLIENTES]
@@ -10,10 +10,10 @@ export default function CarruselLogos() {
       <p className="carrusel__titulo">Confían en nosotros</p>
       <div className="carrusel__pista-wrap">
         <div className="carrusel__pista">
-          {lista.map((nombre, i) => (
-            <span className="carrusel__sello" key={i} aria-hidden={i >= CLIENTES.length}>
-              {nombre}
-            </span>
+          {lista.map((c, i) => (
+            <div className="carrusel__sello" key={i} aria-hidden={i >= CLIENTES.length}>
+              <img src={c.logo} alt={c.nombre} loading="lazy" />
+            </div>
           ))}
         </div>
       </div>
