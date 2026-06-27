@@ -1,0 +1,126 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--borde);
+}
+
+.header__fila {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+  gap: 16px;
+}
+
+.header__logo {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+.header__logo-marca {
+  font-family: var(--font-titulo);
+  font-weight: 800;
+  font-size: 1.5rem;
+  letter-spacing: 0.04em;
+  color: var(--brand);
+}
+.header__logo-bajada {
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-suave);
+}
+
+.header__nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.header__link {
+  padding: 8px 12px;
+  border-radius: var(--radio-chico);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-suave);
+  transition: color var(--transicion), background var(--transicion);
+}
+.header__link:hover {
+  color: var(--text);
+  background: var(--surface-2);
+}
+.header__link--activo {
+  color: var(--brand);
+  font-weight: 600;
+}
+
+.header__cta {
+  margin-left: 8px;
+}
+
+.header__acciones {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.boton-tema {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  color: var(--text);
+  transition: background var(--transicion), transform var(--transicion);
+}
+.boton-tema:hover {
+  background: var(--surface-2);
+  transform: rotate(-12deg);
+}
+
+.header__menu {
+  display: none;
+  color: var(--text);
+}
+
+/* ---- Mobile ---- */
+@media (max-width: 880px) {
+  .header__menu {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+  }
+
+  .header__nav {
+    position: fixed;
+    top: 68px;
+    right: 0;
+    bottom: 0;
+    width: min(80vw, 320px);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    padding: 20px;
+    background: var(--surface);
+    border-left: 1px solid var(--borde);
+    box-shadow: var(--sombra-fuerte);
+    transform: translateX(100%);
+    transition: transform var(--transicion);
+    overflow-y: auto;
+  }
+  .header__nav--abierto {
+    transform: translateX(0);
+  }
+  .header__link {
+    padding: 14px 12px;
+    font-size: 1.05rem;
+  }
+  .header__cta {
+    margin: 12px 0 0;
+    width: 100%;
+  }
+}
