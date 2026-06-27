@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import './Contadores.css'
 
 const DATOS = [
   { fin: 20, sufijo: '+', etiqueta: 'años de trayectoria' },

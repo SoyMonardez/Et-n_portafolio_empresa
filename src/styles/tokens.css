@@ -1,31 +1,27 @@
 /* ============================================================
-   Identidad de Etán — anclada en San Juan y Argentina
-   Azul argentino + celeste cielo + Sol de Mayo dorado + arena.
+   Etán — estilo editorial neutro (tipo revista)
+   Blanco / negro / gris. La jerarquía la dan la tipografía,
+   las fotos y el espacio, no el color.
    Tema claro por defecto; oscuro con <html data-theme="oscuro">.
    ============================================================ */
 
 :root {
-  /* Marca: azul argentino */
-  --brand: #1b4f7a;
-  --brand-fuerte: #133b5c;
-  --brand-suave: #e3eef6;
+  /* Tinta (color principal) */
+  --brand: #16161a;
+  --brand-fuerte: #000000;
+  --brand-suave: #ecebe6;
 
-  /* Acento: Sol de Mayo */
-  --accent: #f2a71b;
-  --accent-fuerte: #db8f00;
-
-  /* Celeste y noche (usados en hero y firmas) */
-  --celeste: #74acdf;
-  --noche: #0a1a2f;
-  --noche-2: #0f2942;
+  /* Acento monocromo (mismo tono que la tinta) */
+  --accent: #16161a;
+  --accent-fuerte: #6e6e70;
 
   /* Superficies y texto (tema claro) */
-  --bg: #f5f1e8;          /* arena cálida */
+  --bg: #f4f3f0;
   --surface: #ffffff;
-  --surface-2: #efe9db;
-  --text: #14202e;
-  --text-suave: #5a6b7b;
-  --borde: #e2dac9;
+  --surface-2: #ecebe6;
+  --text: #16161a;
+  --text-suave: #6e6e70;
+  --borde: #e0dfda;
 
   /* Estados */
   --ok: #2e7d54;
@@ -33,38 +29,37 @@
 
   /* Tipografía */
   --font-titulo: 'Archivo', 'Segoe UI', system-ui, sans-serif;
+  --font-serif: 'Fraunces', Georgia, serif;
   --font-texto: 'Hanken Grotesk', 'Segoe UI', system-ui, sans-serif;
   --font-dato: 'Spline Sans Mono', ui-monospace, monospace;
 
   /* Medidas */
   --radio: 14px;
-  --radio-chico: 9px;
-  --sombra: 0 8px 28px rgba(10, 26, 47, 0.1);
-  --sombra-fuerte: 0 18px 50px rgba(10, 26, 47, 0.22);
-  --ancho-max: 1240px;
+  --radio-chico: 10px;
+  --sombra: 0 8px 28px rgba(20, 20, 26, 0.08);
+  --sombra-fuerte: 0 20px 56px rgba(20, 20, 26, 0.16);
+  --ancho-max: 1280px;
   --transicion: 240ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 [data-theme='oscuro'] {
-  --brand: #5c9fd6;
-  --brand-fuerte: #7cb5e2;
-  --brand-suave: #12283f;
+  --brand: #f2f1ed;
+  --brand-fuerte: #ffffff;
+  --brand-suave: #1e1e20;
 
-  --accent: #f6b83a;
-  --accent-fuerte: #ffc954;
+  --accent: #f2f1ed;
+  --accent-fuerte: #9a9a9c;
 
-  --celeste: #8fc1ee;
-
-  --bg: #0a1a2f;
-  --surface: #11263d;
-  --surface-2: #16304d;
-  --text: #eef3f8;
-  --text-suave: #9db0c2;
-  --borde: #21364f;
+  --bg: #0e0e10;
+  --surface: #161618;
+  --surface-2: #1e1e20;
+  --text: #f2f1ed;
+  --text-suave: #9a9a9c;
+  --borde: #2a2a2c;
 
   --ok: #4caf7d;
   --error: #e07a6a;
 
-  --sombra: 0 8px 28px rgba(0, 0, 0, 0.4);
-  --sombra-fuerte: 0 18px 50px rgba(0, 0, 0, 0.55);
+  --sombra: 0 8px 28px rgba(0, 0, 0, 0.5);
+  --sombra-fuerte: 0 20px 56px rgba(0, 0, 0, 0.6);
 }

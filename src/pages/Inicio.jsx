@@ -7,8 +7,8 @@ import Servicios from '../components/inicio/Servicios.jsx'
 import Contadores from '../components/inicio/Contadores.jsx'
 import LineaTiempo from '../components/inicio/LineaTiempo.jsx'
 import Principios from '../components/inicio/Principios.jsx'
+import Testimonios from '../components/inicio/Testimonios.jsx'
 import Aparecer from '../components/util/Aparecer.jsx'
-import SolDeMayo from '../components/marca/SolDeMayo.jsx'
 import './Inicio.css'
 
 export default function Inicio() {
@@ -21,11 +21,11 @@ export default function Inicio() {
       <Contadores />
       <LineaTiempo />
       <Principios />
+      <Testimonios />
 
       {/* Cierre */}
       <section className="contenedor">
         <Aparecer className="cierre">
-          <SolDeMayo size={260} className="cierre__sol" />
           <div className="cierre__texto">
             <h2 className="cierre__titulo">¿Tenés una obra en mente?</h2>
             <p className="cierre__bajada">

@@ -1,5 +1,5 @@
-// Proyectos destacados (borrador). Más adelante se cargan desde el admin.
-// "tono" define el color del marcador de portada mientras no haya foto real.
+// Proyectos destacados (borrador). Las fotos son de archivo (placeholder);
+// se reemplazan por las reales desde el admin.
 export const PROYECTOS = [
   {
     id: 'demolicion-capital',
@@ -7,7 +7,7 @@ export const PROYECTOS = [
     categoria: 'Demolición',
     lugar: 'Ciudad de San Juan',
     anio: '2023',
-    tono: '#1b4f7a',
+    img: '/img/proyecto-1.jpg',
   },
   {
     id: 'veredas-chimbas',
@@ -15,7 +15,7 @@ export const PROYECTOS = [
     categoria: 'Veredas',
     lugar: 'Chimbas',
     anio: '2022',
-    tono: '#b06a12',
+    img: '/img/proyecto-2.jpg',
   },
   {
     id: 'defensa-piedra',
@@ -23,6 +23,6 @@ export const PROYECTOS = [
     categoria: 'Piedra bola',
     lugar: 'Albardón',
     anio: '2021',
-    tono: '#2e6f9e',
+    img: '/img/proyecto-3.jpg',
   },
 ]

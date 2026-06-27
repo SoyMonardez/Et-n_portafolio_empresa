@@ -24,7 +24,14 @@ export default function Proyectos() {
           {PROYECTOS.map((p, i) => (
             <Aparecer key={p.id} delay={i * 0.08}>
               <Link to="/obras" className="proy-card">
-                <div className="proy-card__portada" style={{ '--tono': p.tono }}>
+                <div className="proy-card__portada">
+                  <img
+                    src={p.img}
+                    alt={p.titulo}
+                    width="800"
+                    height="600"
+                    loading="lazy"
+                  />
                   <span className="proy-card__categoria">{p.categoria}</span>
                   <FiArrowUpRight className="proy-card__flecha" />
                 </div>

@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { SERVICIOS } from '../../data/servicios.js'
-import SolDeMayo from '../marca/SolDeMayo.jsx'
 import './Servicios.css'
 
 // Servicios con íconos. Al seleccionar uno se muestra un panel ilustrativo
@@ -9,7 +8,6 @@ import './Servicios.css'
 export default function Servicios() {
   const [activo, setActivo] = useState(SERVICIOS[0].id)
   const sel = SERVICIOS.find((s) => s.id === activo)
-  const Icono = sel.icono
 
   return (
     <section className="serv">
@@ -55,12 +53,8 @@ export default function Servicios() {
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.32 }}
               >
-                <div
-                  className="serv__imagen"
-                  style={{ '--tono': sel.tono }}
-                >
-                  <SolDeMayo size={150} className="serv__imagen-sol" />
-                  <Icono className="serv__imagen-icono" />
+                <div className="serv__imagen">
+                  <img src={sel.img} alt={sel.titulo} loading="lazy" />
                 </div>
                 <h3 className="serv__detalle-titulo">{sel.titulo}</h3>
                 <p className="serv__detalle-texto">{sel.detalle}</p>
