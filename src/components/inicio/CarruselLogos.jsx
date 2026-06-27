@@ -4,7 +4,9 @@ import './CarruselLogos.css'
 // Carrusel infinito (marquee) con los logos de los lugares donde trabajó Etán.
 // Se duplica la lista para que el desplazamiento sea continuo.
 export default function CarruselLogos() {
-  const lista = [...CLIENTES, ...CLIENTES]
+  // Repetimos varias veces para que cada mitad sea más ancha que la pantalla;
+  // así, al desplazar -50%, el loop es continuo y nunca queda un hueco.
+  const lista = Array.from({ length: 6 }, () => CLIENTES).flat()
   return (
     <section className="carrusel" aria-label="Dónde trabajamos">
       <p className="carrusel__titulo">Confían en nosotros</p>
