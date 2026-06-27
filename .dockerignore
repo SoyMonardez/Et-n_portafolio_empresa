@@ -1,0 +1,13 @@
+node_modules
+backend/node_modules
+ai-service/node_modules
+dist
+build
+.git
+.gitignore
+*.log
+.env
+.env.*
+uploads
+backend/uploads
+.vite
