@@ -1,0 +1,57 @@
+.linea {
+  padding: clamp(64px, 9vw, 110px) 0;
+  background: var(--surface);
+  border-block: 1px solid var(--borde);
+}
+.linea__lista {
+  margin-top: 40px;
+  position: relative;
+}
+/* Línea vertical continua */
+.linea__lista::before {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  background: linear-gradient(var(--accent), var(--borde));
+}
+.hito {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 22px;
+  padding-bottom: 34px;
+}
+.hito__marca {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding-top: 4px;
+}
+.hito__punto {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid var(--surface);
+  box-shadow: 0 0 0 2px var(--accent);
+  z-index: 1;
+}
+.hito__anio {
+  display: inline-block;
+  font-family: var(--font-dato);
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  color: var(--brand);
+  margin-bottom: 4px;
+}
+.hito__titulo {
+  font-size: 1.2rem;
+  margin-bottom: 6px;
+}
+.hito__texto {
+  color: var(--text-suave);
+  max-width: 560px;
+}

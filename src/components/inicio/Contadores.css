@@ -1,0 +1,51 @@
+.contadores {
+  background: var(--noche);
+  color: #fff;
+  padding: clamp(48px, 7vw, 80px) 0;
+  position: relative;
+  overflow: hidden;
+}
+.contadores::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(80% 120% at 90% 0%, rgba(242, 167, 27, 0.12), transparent 60%);
+  pointer-events: none;
+}
+.contadores__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+  position: relative;
+}
+.contador {
+  text-align: center;
+}
+.contador__numero {
+  display: block;
+  font-family: var(--font-titulo);
+  font-weight: 900;
+  font-size: clamp(2.6rem, 6vw, 4.2rem);
+  line-height: 1;
+  color: var(--accent);
+}
+.contador__sufijo {
+  font-size: 0.42em;
+  margin-left: 4px;
+  color: #fff;
+  font-weight: 700;
+}
+.contador__etiqueta {
+  display: block;
+  margin-top: 10px;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.95rem;
+}
+
+@media (max-width: 720px) {
+  .contadores__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px 16px;
+  }
+}

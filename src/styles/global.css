@@ -101,6 +101,62 @@ ul {
   color: var(--brand);
 }
 
+/* Sección de cierre / llamado a la acción (usada en varias páginas) */
+.cierre {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 26px;
+  margin-top: 40px;
+  padding: clamp(36px, 6vw, 64px);
+  border-radius: var(--radio);
+  background: linear-gradient(120deg, var(--brand-fuerte), var(--brand));
+  color: #fff;
+}
+.cierre__sol {
+  position: absolute;
+  right: -70px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--accent);
+  opacity: 0.2;
+  pointer-events: none;
+}
+.cierre__texto { position: relative; z-index: 1; }
+.cierre__titulo { font-size: clamp(1.6rem, 4vw, 2.4rem); color: #fff; }
+.cierre__bajada {
+  margin-top: 8px;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 480px;
+}
+.cierre__boton { position: relative; z-index: 1; }
+
+/* Eyebrow y título de sección (estilo de marca) */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-dato);
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-fuerte);
+  margin-bottom: 12px;
+}
+.eyebrow::before {
+  content: '';
+  width: 26px;
+  height: 2px;
+  background: var(--accent);
+}
+.titulo-seccion {
+  font-size: clamp(1.8rem, 4.5vw, 2.9rem);
+  line-height: 1.05;
+}
+
 /* Títulos de sección */
 .seccion {
   padding: 72px 0;

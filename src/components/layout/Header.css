@@ -1,17 +1,28 @@
 .header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
+  transition: background var(--transicion), border-color var(--transicion),
+    backdrop-filter var(--transicion);
+}
+
+.header--solido {
   background: color-mix(in srgb, var(--bg) 88%, transparent);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--borde);
+}
+.header--transparente {
+  background: transparent;
+  border-bottom: 1px solid transparent;
 }
 
 .header__fila {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 68px;
+  height: 72px;
   gap: 16px;
 }
 
@@ -22,28 +33,36 @@
 }
 .header__logo-marca {
   font-family: var(--font-titulo);
-  font-weight: 800;
-  font-size: 1.5rem;
-  letter-spacing: 0.04em;
+  font-weight: 900;
+  font-size: 1.55rem;
+  letter-spacing: 0.06em;
   color: var(--brand);
 }
+.header--transparente .header__logo-marca {
+  color: #fff;
+}
 .header__logo-bajada {
-  font-size: 0.68rem;
-  letter-spacing: 0.22em;
+  font-family: var(--font-dato);
+  font-size: 0.62rem;
+  letter-spacing: 0.26em;
   text-transform: uppercase;
   color: var(--text-suave);
+  margin-top: 2px;
+}
+.header--transparente .header__logo-bajada {
+  color: var(--accent);
 }
 
 .header__nav {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
 }
 
 .header__link {
-  padding: 8px 12px;
+  padding: 8px 13px;
   border-radius: var(--radio-chico);
-  font-size: 0.95rem;
+  font-size: 0.93rem;
   font-weight: 500;
   color: var(--text-suave);
   transition: color var(--transicion), background var(--transicion);
@@ -56,9 +75,19 @@
   color: var(--brand);
   font-weight: 600;
 }
+.header--transparente .header__link {
+  color: rgba(255, 255, 255, 0.82);
+}
+.header--transparente .header__link:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+}
+.header--transparente .header__link--activo {
+  color: #fff;
+}
 
 .header__cta {
-  margin-left: 8px;
+  margin-left: 10px;
 }
 
 .header__acciones {
@@ -76,18 +105,27 @@
   color: var(--text);
   transition: background var(--transicion), transform var(--transicion);
 }
+.header--transparente .boton-tema {
+  color: #fff;
+}
 .boton-tema:hover {
   background: var(--surface-2);
   transform: rotate(-12deg);
+}
+.header--transparente .boton-tema:hover {
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .header__menu {
   display: none;
   color: var(--text);
 }
+.header--transparente .header__menu {
+  color: #fff;
+}
 
 /* ---- Mobile ---- */
-@media (max-width: 880px) {
+@media (max-width: 900px) {
   .header__menu {
     display: grid;
     place-items: center;
@@ -97,14 +135,14 @@
 
   .header__nav {
     position: fixed;
-    top: 68px;
+    top: 72px;
     right: 0;
     bottom: 0;
-    width: min(80vw, 320px);
+    width: min(82vw, 340px);
     flex-direction: column;
     align-items: stretch;
     gap: 4px;
-    padding: 20px;
+    padding: 22px;
     background: var(--surface);
     border-left: 1px solid var(--borde);
     box-shadow: var(--sombra-fuerte);
@@ -118,9 +156,10 @@
   .header__link {
     padding: 14px 12px;
     font-size: 1.05rem;
+    color: var(--text-suave);
   }
   .header__cta {
-    margin: 12px 0 0;
+    margin: 14px 0 0;
     width: 100%;
   }
 }

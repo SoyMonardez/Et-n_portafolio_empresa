@@ -1,36 +1,24 @@
 import { Link } from 'react-router-dom'
 import { FiArrowRight } from 'react-icons/fi'
-import { SERVICIOS } from '../data/servicios.js'
 import Encabezado from '../components/util/Encabezado.jsx'
+import Servicios from '../components/inicio/Servicios.jsx'
 import Aparecer from '../components/util/Aparecer.jsx'
 
-export default function Servicios() {
+export default function ServiciosPagina() {
   return (
     <>
       <Encabezado
         titulo="Nuestros servicios"
         bajada="Soluciones de construcción y demolición con maquinaria propia y un equipo con experiencia en obra pública y privada."
       />
-      <section className="seccion contenedor">
-        <div className="servicios-grid">
-          {SERVICIOS.map((s, i) => {
-            const Icono = s.icono
-            return (
-              <Aparecer key={s.id} delay={i * 0.06} className="servicio-card">
-                {s.nuevo && <span className="servicio-card__nuevo">Nuevo</span>}
-                <span className="servicio-card__icono"><Icono /></span>
-                <h2 className="servicio-card__titulo">{s.titulo}</h2>
-                <p className="servicio-card__texto">{s.resumen}</p>
-              </Aparecer>
-            )
-          })}
-        </div>
-        <Aparecer className="cta-final" delay={0.1}>
-          <div>
-            <h2 className="cta-final__titulo">¿No encontrás lo que buscás?</h2>
-            <p className="cta-final__texto">Escribinos y vemos cómo ayudarte.</p>
+      <Servicios />
+      <section className="contenedor" style={{ paddingBottom: '90px' }}>
+        <Aparecer className="cierre">
+          <div className="cierre__texto">
+            <h2 className="cierre__titulo">¿No encontrás lo que buscás?</h2>
+            <p className="cierre__bajada">Escribinos y vemos cómo ayudarte.</p>
           </div>
-          <Link to="/contacto" className="boton boton--principal">
+          <Link to="/contacto" className="boton boton--principal cierre__boton">
             Contactanos <FiArrowRight />
           </Link>
         </Aparecer>

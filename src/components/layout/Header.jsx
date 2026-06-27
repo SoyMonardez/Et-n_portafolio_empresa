@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { NavLink, Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { NavLink, Link, useLocation } from 'react-router-dom'
 import { FiMenu, FiX } from 'react-icons/fi'
 import { NAV } from '../../config/rutas.js'
 import BotonTema from '../ui/BotonTema.jsx'
@@ -7,13 +7,25 @@ import './Header.css'
 
 export default function Header() {
   const [abierto, setAbierto] = useState(false)
+  const [scrolleado, setScrolleado] = useState(false)
+  const { pathname } = useLocation()
   const cerrar = () => setAbierto(false)
 
+  // En el inicio, el header arranca translúcido sobre el hero y se
+  // vuelve sólido al bajar. En el resto de las páginas, siempre sólido.
+  const sobreHero = pathname === '/' && !scrolleado && !abierto
+
+  useEffect(() => {
+    const onScroll = () => setScrolleado(window.scrollY > 40)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   return (
-    <header className="header">
+    <header className={`header ${sobreHero ? 'header--transparente' : 'header--solido'}`}>
       <div className="contenedor header__fila">
         <Link to="/" className="header__logo" onClick={cerrar}>
-          {/* Placeholder del logo hasta tener el definitivo */}
           <span className="header__logo-marca">ETÁN</span>
           <span className="header__logo-bajada">Construcción</span>
         </Link>

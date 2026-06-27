@@ -1,0 +1,151 @@
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: var(--noche);
+  isolation: isolate;
+}
+
+/* Cielo: degradado noche → azul profundo */
+.hero__cielo {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  background:
+    radial-gradient(120% 90% at 50% 8%, #16365a 0%, var(--noche) 55%, #06101d 100%);
+}
+
+/* Sol de Mayo detrás del nombre */
+.hero__sol {
+  position: absolute;
+  top: clamp(-180px, -8vw, -60px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: -2;
+  color: var(--accent);
+  opacity: 0.16;
+  filter: drop-shadow(0 0 60px rgba(242, 167, 27, 0.4));
+  animation: girar-sol 120s linear infinite;
+}
+@keyframes girar-sol {
+  to { transform: translateX(-50%) rotate(360deg); }
+}
+
+.hero__particulas {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+}
+
+/* Cordillera en la base */
+.hero__cordillera {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: clamp(140px, 26vh, 260px);
+  z-index: -1;
+  color: var(--noche-2);
+}
+
+.hero__contenido {
+  padding-bottom: 6vh;
+  text-align: center;
+  color: #fff;
+}
+
+.hero__eyebrow {
+  display: inline-block;
+  font-family: var(--font-dato);
+  font-size: clamp(0.72rem, 1.6vw, 0.9rem);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 18px;
+}
+
+.hero__nombre {
+  font-family: var(--font-titulo);
+  font-weight: 900;
+  font-size: clamp(5rem, 26vw, 20rem);
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+  margin: 0;
+  color: #fff;
+  text-shadow: 0 8px 60px rgba(0, 0, 0, 0.5);
+}
+
+.hero__lema {
+  margin: 18px auto 0;
+  max-width: 560px;
+  font-size: clamp(1.05rem, 2.4vw, 1.4rem);
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.5;
+}
+
+.hero__acciones {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-top: 34px;
+}
+.hero__link-secundario {
+  position: relative;
+  color: #fff;
+  font-weight: 600;
+  padding-bottom: 3px;
+}
+.hero__link-secundario::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0.4);
+  transform-origin: left;
+  transition: transform var(--transicion);
+}
+.hero__link-secundario:hover::after {
+  transform: scaleX(1);
+}
+
+/* Flecha de scroll */
+.hero__scroll {
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  font-size: 1.2rem;
+  animation: rebote 1.8s ease-in-out infinite;
+  z-index: 2;
+}
+.hero__scroll:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+@keyframes rebote {
+  0%, 100% { transform: translate(-50%, 0); }
+  50% { transform: translate(-50%, 9px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__sol,
+  .hero__scroll {
+    animation: none;
+  }
+}
