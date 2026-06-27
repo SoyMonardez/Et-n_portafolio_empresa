@@ -8,89 +8,76 @@ const sube = {
   show: (i = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.7, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] },
   }),
 }
 
 export default function Hero() {
   return (
     <section className="heroE">
-      <div className="contenedor">
-        {/* Etiquetas superiores, estilo editorial */}
-        <motion.div
-          className="heroE__labels"
-          variants={sube}
-          initial="hidden"
-          animate="show"
-        >
-          <span>San Juan · Argentina</span>
-          <span>Construcción &amp; demolición</span>
-          <span>Desde 2003</span>
-        </motion.div>
+      <div className="heroE__panel">
+        <img
+          className="heroE__img"
+          src="/img/hero.jpg"
+          alt="Equipo de Etán trabajando en una obra en San Juan"
+          width="1920"
+          height="1080"
+          fetchPriority="high"
+        />
+        <div className="heroE__overlay" />
 
-        {/* Nombre gigante + foto superpuesta */}
-        <div className="heroE__stage">
+        <div className="contenedor heroE__inner">
+          <motion.span
+            className="heroE__eyebrow"
+            variants={sube}
+            initial="hidden"
+            animate="show"
+          >
+            Empresa constructora · San Juan · desde 2003
+          </motion.span>
+
           <motion.h1
-            className="heroE__word"
+            className="heroE__titulo"
             variants={sube}
             initial="hidden"
             animate="show"
             custom={1}
           >
-            ETÁN
+            Construimos sobre bases <em>firmes</em>
           </motion.h1>
 
-          <motion.figure
-            className="heroE__media"
+          <motion.p
+            className="heroE__sub"
             variants={sube}
             initial="hidden"
             animate="show"
             custom={2}
           >
-            <img
-              src="/img/hero.jpg"
-              alt="Obra de construcción de Etán en San Juan"
-              width="1600"
-              height="1000"
-              fetchPriority="high"
-            />
-            <div className="heroE__media-pies">
-              <div className="heroE__chips">
-                <span>Demolición</span>
-                <span>Veredas</span>
-                <span>Obra civil</span>
-              </div>
-              <span className="heroE__lugar">San Juan, AR</span>
-            </div>
-          </motion.figure>
-        </div>
-
-        {/* Bajada con acentos en serif itálica + acciones */}
-        <div className="heroE__abajo">
-          <motion.p
-            className="heroE__lema"
-            variants={sube}
-            initial="hidden"
-            animate="show"
-            custom={3}
-          >
-            Espacios donde la ciudad <em>trabaja</em>, <em>crece</em> y{' '}
-            <em>perdura</em>.
+            Demolición, piedra bola, veredas y obra civil con equipo propio y más
+            de 20 años de trayectoria en toda la provincia.
           </motion.p>
+
           <motion.div
             className="heroE__acciones"
             variants={sube}
             initial="hidden"
             animate="show"
-            custom={4}
+            custom={3}
           >
             <Link to="/obras" className="boton boton--principal">
               Ver proyectos <FiArrowRight />
             </Link>
-            <Link to="/presupuesto" className="heroE__link">
+            <Link to="/presupuesto" className="boton heroE__btn-claro">
               Pedir presupuesto
             </Link>
           </motion.div>
+        </div>
+
+        <div className="heroE__chips">
+          <span>Demolición</span>
+          <span>Piedra bola</span>
+          <span>Veredas</span>
+          <span>Obra civil</span>
         </div>
       </div>
 
