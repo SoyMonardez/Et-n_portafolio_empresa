@@ -1,13 +1,31 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { SERVICIOS } from '../../data/servicios.js'
 import './Servicios.css'
 
-// Servicios con íconos. Al seleccionar uno se muestra un panel ilustrativo
-// con su descripción. En el panel va una foto real cuando esté disponible.
+const DURACION_MS = 5000
+
+// Servicios con íconos. Avanza solo cada DURACION_MS (con una barrita de
+// tiempo bajo el ítem activo) hasta que el usuario elige uno a mano, momento
+// en el que se detiene el avance automático.
 export default function Servicios() {
   const [activo, setActivo] = useState(SERVICIOS[0].id)
-  const sel = SERVICIOS.find((s) => s.id === activo)
+  const [automatico, setAutomatico] = useState(true)
+  const indice = SERVICIOS.findIndex((s) => s.id === activo)
+  const sel = SERVICIOS[indice]
+
+  useEffect(() => {
+    if (!automatico) return
+    const id = setTimeout(() => {
+      setActivo(SERVICIOS[(indice + 1) % SERVICIOS.length].id)
+    }, DURACION_MS)
+    return () => clearTimeout(id)
+  }, [activo, automatico, indice])
+
+  function elegir(id) {
+    setAutomatico(false)
+    setActivo(id)
+  }
 
   return (
     <section className="serv">
@@ -27,7 +45,7 @@ export default function Servicios() {
                   role="tab"
                   aria-selected={on}
                   className={`serv__item ${on ? 'serv__item--on' : ''}`}
-                  onClick={() => setActivo(s.id)}
+                  onClick={() => elegir(s.id)}
                 >
                   <span className="serv__item-icono"><Ic /></span>
                   <span className="serv__item-texto">
@@ -36,6 +54,15 @@ export default function Servicios() {
                       {s.nuevo && <span className="serv__nuevo">Nuevo</span>}
                     </span>
                     <span className="serv__item-resumen">{s.resumen}</span>
+                    <span className="serv__progreso">
+                      {on && automatico && (
+                        <span
+                          key={activo}
+                          className="serv__progreso-relleno"
+                          style={{ animationDuration: `${DURACION_MS}ms` }}
+                        />
+                      )}
+                    </span>
                   </span>
                 </button>
               )
