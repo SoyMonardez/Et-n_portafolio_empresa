@@ -15,8 +15,6 @@
 }
 .carrusel__pista-wrap {
   position: relative;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
 }
 .carrusel__pista {
   display: flex;
@@ -46,8 +44,47 @@
   height: 56px;
   object-fit: contain;
 }
+
+/* Cartelito con el nombre al pasar el mouse (o al enfocar con teclado) */
+.carrusel__tooltip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translate(-50%, 6px);
+  z-index: 3;
+  white-space: nowrap;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: var(--text);
+  color: var(--bg);
+  font-family: var(--font-dato);
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  box-shadow: var(--sombra);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transicion), transform var(--transicion);
+}
+.carrusel__tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--text);
+}
+.carrusel__sello:hover .carrusel__tooltip,
+.carrusel__sello:focus-visible .carrusel__tooltip {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
 @keyframes desplazar {
   to { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .carrusel__tooltip { transition: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .carrusel__pista { animation: none; flex-wrap: wrap; justify-content: center; }

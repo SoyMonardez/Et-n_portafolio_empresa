@@ -13,8 +13,14 @@ export default function CarruselLogos() {
       <div className="carrusel__pista-wrap">
         <div className="carrusel__pista">
           {lista.map((c, i) => (
-            <div className="carrusel__sello" key={i} aria-hidden={i >= CLIENTES.length}>
+            <div
+              className="carrusel__sello"
+              key={i}
+              aria-hidden={i >= CLIENTES.length}
+              tabIndex={i < CLIENTES.length ? 0 : -1}
+            >
               <img src={c.logo} alt={c.nombre} loading="lazy" />
+              <span className="carrusel__tooltip" role="tooltip">{c.nombre}</span>
             </div>
           ))}
         </div>
