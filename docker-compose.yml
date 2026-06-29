@@ -29,6 +29,7 @@ services:
       PGUSER: ${PGUSER:-etan}
       PGPASSWORD: ${PGPASSWORD:-cambiar_esto}
       PGDATABASE: ${PGDATABASE:-etan}
+      JWT_SECRET: ${JWT_SECRET:-854f600c05280406002514644ae67c4febfadf4bd5d2b174997d04967c86f02d595dd86fb07f47ff17b8636cff62f7fa}
     volumes:
       - etan_uploads:/app/uploads
     depends_on:

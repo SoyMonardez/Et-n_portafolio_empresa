@@ -10,6 +10,8 @@ import presupuestosRouter from './routes/presupuestos.js';
 import contactoRouter from './routes/contacto.js';
 import alquilerRouter from './routes/alquiler.js';
 import postulacionesRouter from './routes/postulaciones.js';
+import authRouter from './routes/auth.js';
+import adminRouter from './routes/admin.js';
 
 export function buildApp() {
   const app = express();
@@ -40,6 +42,8 @@ export function buildApp() {
   app.use('/contacto', contactoRouter);
   app.use('/alquiler', alquilerRouter);
   app.use('/postulaciones', postulacionesRouter);
+  app.use('/auth', authRouter);
+  app.use('/admin', adminRouter);
 
   app.use(notFoundHandler);
   app.use(errorHandler);

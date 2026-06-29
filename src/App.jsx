@@ -1,5 +1,5 @@
 import { Suspense, lazy } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import Layout from './components/layout/Layout.jsx'
 import IrArriba from './components/util/IrArriba.jsx'
 
@@ -13,6 +13,7 @@ const Empleo = lazy(() => import('./pages/Empleo.jsx'))
 const Nosotros = lazy(() => import('./pages/Nosotros.jsx'))
 const Contacto = lazy(() => import('./pages/Contacto.jsx'))
 const Legal = lazy(() => import('./pages/Legal.jsx'))
+const Admin = lazy(() => import('./pages/Admin.jsx'))
 const NoEncontrada = lazy(() => import('./pages/NoEncontrada.jsx'))
 
 function Cargando() {
@@ -20,6 +21,17 @@ function Cargando() {
 }
 
 export default function App() {
+  const location = useLocation()
+
+  // El panel admin es una app aparte: sin header/footer/cookies del sitio público.
+  if (location.pathname.startsWith('/admin')) {
+    return (
+      <Suspense fallback={<Cargando />}>
+        <Admin />
+      </Suspense>
+    )
+  }
+
   return (
     <Layout>
       <IrArriba />

@@ -9,3 +9,12 @@ export const formRateLimiter = rateLimit({
   legacyHeaders: false,
   message: { error: 'Alcanzaste el límite de envíos. Probá de nuevo más tarde.' },
 });
+
+// Previene fuerza bruta contra el login del admin.
+export const loginRateLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 10,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Demasiados intentos. Esperá 15 minutos.' },
+});
