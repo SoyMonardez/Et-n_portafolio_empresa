@@ -1,25 +1,34 @@
-# Etán — Sitio web para constructora (PyME real)
+# Etán Construcciones — San Juan, Argentina
 
-Sitio web institucional desarrollado para **Etán** (San Juan, Argentina), empresa constructora con 20+ años en el mercado (demolición, piedra bola, veredas, obra civil y mantenimiento de campamentos mineros).
+## El problema
 
-Proyecto real, en producción, para un cliente de la industria de la construcción.
+Etán es una constructora de San Juan con más de 20 años de trayectoria (demolición, piedra bola, veredas, obra civil y mantenimiento de campamentos mineros), pero no tenía presencia web. Todo el contacto con clientes nuevos —empresas mineras, municipios, particulares— dependía de referidos y contacto directo. Sin un lugar donde mostrar las obras realizadas, la maquinaria propia y los datos de contacto, perdían oportunidades frente a competidores que sí aparecen en una búsqueda de Google.
+
+Tampoco tenían forma de recibir y ordenar postulaciones laborales ni consultas comerciales: llegaban (o se perdían) por WhatsApp o llamadas sueltas.
+
+## La solución
+
+Un sitio que vende la empresa de entrada —diseño editorial con fotos reales de obras, no una plantilla genérica— y un sistema detrás que la empresa puede operar sola, sin depender de un programador para cada cambio:
+
+- **Captación de clientes:** formularios de contacto y cotización que llegan ordenados al backend, en vez de perderse en chats.
+- **Banco de obras y maquinaria editable:** quien atiende el sitio (sin conocimientos técnicos) sube fotos y datos de proyectos terminados y equipos propios desde un panel en español simple, sin tocar código.
+- **Postulaciones laborales:** bandeja de candidatos en el admin, en vez de currículums sueltos por WhatsApp.
+- **Alcance a clientes mineros/internacionales:** traducción automática ES→EN del contenido (microservicio de IA propio) para no perder leads por idioma.
+- **Métricas propias:** analítica con consentimiento de cookies, sin depender de Google Analytics ni ceder los datos a terceros.
+
+## Impacto
+
+- Le da a una PyME real una vidriera profesional que antes no existía, comparable a la de competidores más grandes.
+- Reduce la dependencia del dueño/encargado para actualizar el sitio: el admin está pensado para alguien sin perfil técnico.
+- Ordena un proceso que antes era informal (consultas y postulaciones por WhatsApp) en un flujo con registro y seguimiento.
 
 ## Stack
 
-- **Frontend:** React 19 + Vite + React Router, Framer Motion para animaciones
+- **Frontend:** React 19 + Vite + React Router + Framer Motion
 - **Backend:** Node.js / Express (ESM)
 - **Base de datos:** PostgreSQL
-- **IA:** microservicio propio (Groq/Llama) detrás de un proxy backend — traducción ES→EN, autocompletado de descripciones y sugerencias de marketing sobre métricas
+- **IA:** microservicio propio (Groq/Llama) detrás de un proxy backend — traducción, autocompletado de descripciones, sugerencias sobre métricas
 - **Infraestructura:** Docker + Nginx
-
-## Features
-
-- Diseño editorial a medida (tipografía, fotografía y espacio en blanco como jerarquía visual), mobile-first y con foco en performance (Lighthouse > 90)
-- Panel de administración en español simple para que el cliente edite contenido sin conocimientos técnicos: datos de contacto, redes sociales, obras realizadas y maquinaria
-- Formularios de contacto y postulación conectados a backend propio
-- Analítica propia con consentimiento de cookies (sin servicios de terceros)
-- Carrusel de clientes, línea de tiempo institucional y secciones de misión/visión/valores/RSE
-- SEO técnico (metadatos, sitemap) y accesibilidad (`prefers-reduced-motion`)
 
 ## Desarrollo
 
@@ -33,4 +42,4 @@ Requiere PostgreSQL local y variables de entorno (ver `.env.example`).
 
 ---
 
-Desarrollado de punta a punta: diseño, frontend, backend, base de datos y despliegue.
+Proyecto real para un cliente, desarrollado de punta a punta: diseño, frontend, backend, base de datos y despliegue.
