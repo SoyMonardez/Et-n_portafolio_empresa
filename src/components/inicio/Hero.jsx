@@ -83,6 +83,7 @@ export default function Hero() {
             <span>Piedra bola</span>
             <span>Veredas</span>
             <span>Obra civil</span>
+            <span>Mantenimiento de campamentos mineros</span>
           </motion.div>
         </div>
       </div>
