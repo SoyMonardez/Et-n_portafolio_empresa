@@ -71,13 +71,19 @@ export default function Hero() {
               Pedir presupuesto
             </Link>
           </motion.div>
-        </div>
 
-        <div className="heroE__chips">
-          <span>Demolición</span>
-          <span>Piedra bola</span>
-          <span>Veredas</span>
-          <span>Obra civil</span>
+          <motion.div
+            className="heroE__chips"
+            variants={sube}
+            initial="hidden"
+            animate="show"
+            custom={4}
+          >
+            <span>Demolición</span>
+            <span>Piedra bola</span>
+            <span>Veredas</span>
+            <span>Obra civil</span>
+          </motion.div>
         </div>
       </div>
 
