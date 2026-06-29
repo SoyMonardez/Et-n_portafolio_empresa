@@ -3,6 +3,7 @@ import { FiCheck, FiPhone, FiMail, FiMapPin, FiClock } from 'react-icons/fi'
 import Encabezado from '../components/util/Encabezado.jsx'
 import Aparecer from '../components/util/Aparecer.jsx'
 import useSeo from '../hooks/useSeo.js'
+import { enviarContacto } from '../lib/api.js'
 import '../styles/formulario.css'
 import './Contacto.css'
 
@@ -24,14 +25,25 @@ export default function Contacto() {
 
   const [datos, setDatos] = useState(VACIO)
   const [enviado, setEnviado] = useState(false)
+  const [enviando, setEnviando] = useState(false)
+  const [error, setError] = useState('')
 
   function actualizar(campo, valor) {
     setDatos((d) => ({ ...d, [campo]: valor }))
   }
 
-  function enviar(e) {
+  async function enviar(e) {
     e.preventDefault()
-    setEnviado(true)
+    setError('')
+    setEnviando(true)
+    try {
+      await enviarContacto(datos)
+      setEnviado(true)
+    } catch (err) {
+      setError(err.message || 'No pudimos enviar tu mensaje. Probá de nuevo.')
+    } finally {
+      setEnviando(false)
+    }
   }
 
   return (
@@ -98,8 +110,10 @@ export default function Contacto() {
                   onChange={(e) => actualizar('mensaje', e.target.value)}
                 />
               </div>
-              <button type="submit" className="boton boton--principal formE__enviar">
-                Enviar mensaje
+              {error && <p className="formE__ayuda" style={{ color: 'var(--error)' }}>{error}</p>}
+
+              <button type="submit" className="boton boton--principal formE__enviar" disabled={enviando}>
+                {enviando ? 'Enviando…' : 'Enviar mensaje'}
               </button>
             </form>
           )}

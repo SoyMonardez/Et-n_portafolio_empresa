@@ -5,6 +5,7 @@ import Encabezado from '../components/util/Encabezado.jsx'
 import Aparecer from '../components/util/Aparecer.jsx'
 import useSeo from '../hooks/useSeo.js'
 import { SERVICIOS } from '../data/servicios.js'
+import { enviarPresupuesto } from '../lib/api.js'
 import '../styles/formulario.css'
 
 const VACIO = { servicio: '', nombre: '', telefono: '', email: '', ubicacion: '', descripcion: '' }
@@ -23,15 +24,25 @@ export default function Presupuesto() {
     descripcion: maquina ? `Quisiera alquilar: ${maquina}.` : '',
   }))
   const [enviado, setEnviado] = useState(false)
+  const [enviando, setEnviando] = useState(false)
+  const [error, setError] = useState('')
 
   function actualizar(campo, valor) {
     setDatos((d) => ({ ...d, [campo]: valor }))
   }
 
-  function enviar(e) {
+  async function enviar(e) {
     e.preventDefault()
-    // El envío real al backend se conecta en la próxima etapa.
-    setEnviado(true)
+    setError('')
+    setEnviando(true)
+    try {
+      await enviarPresupuesto(datos)
+      setEnviado(true)
+    } catch (err) {
+      setError(err.message || 'No pudimos enviar tu solicitud. Probá de nuevo.')
+    } finally {
+      setEnviando(false)
+    }
   }
 
   if (enviado) {
@@ -130,8 +141,10 @@ export default function Presupuesto() {
               />
             </div>
 
-            <button type="submit" className="boton boton--principal formE__enviar">
-              Enviar solicitud
+            {error && <p className="formE__ayuda" style={{ color: 'var(--error)' }}>{error}</p>}
+
+            <button type="submit" className="boton boton--principal formE__enviar" disabled={enviando}>
+              {enviando ? 'Enviando…' : 'Enviar solicitud'}
             </button>
           </form>
         </Aparecer>

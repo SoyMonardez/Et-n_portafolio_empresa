@@ -1,8 +1,41 @@
-# Despliegue local de Etán.
-# Por ahora solo el sitio web (frontend). En las próximas fases se
-# agregan los servicios "backend" (Node/Express) y "db" (PostgreSQL).
+# Despliegue local de Etán: frontend (Nginx) + backend (Node) + base (PostgreSQL).
 
 services:
+  db:
+    image: postgres:16-alpine
+    container_name: etan-db
+    environment:
+      POSTGRES_DB: ${PGDATABASE:-etan}
+      POSTGRES_USER: ${PGUSER:-etan}
+      POSTGRES_PASSWORD: ${PGPASSWORD:-cambiar_esto}
+    volumes:
+      - etan_db:/var/lib/postgresql/data
+      - ./backend/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${PGUSER:-etan}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  backend:
+    build: ./backend
+    container_name: etan-backend
+    environment:
+      PORT: 4000
+      NODE_ENV: production
+      PGHOST: db
+      PGPORT: 5432
+      PGUSER: ${PGUSER:-etan}
+      PGPASSWORD: ${PGPASSWORD:-cambiar_esto}
+      PGDATABASE: ${PGDATABASE:-etan}
+    volumes:
+      - etan_uploads:/app/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
   web:
     build:
       context: .
@@ -11,26 +44,10 @@ services:
     container_name: etan-web
     ports:
       - "8090:80"
+    depends_on:
+      - backend
     restart: unless-stopped
 
-  # --- Pendiente para fases siguientes ---
-  # db:
-  #   image: postgres:16-alpine
-  #   container_name: etan-db
-  #   environment:
-  #     POSTGRES_DB: etan
-  #     POSTGRES_USER: etan
-  #     POSTGRES_PASSWORD: cambiar_esto
-  #   volumes:
-  #     - etan_db:/var/lib/postgresql/data
-  #   restart: unless-stopped
-  #
-  # backend:
-  #   build: ./backend
-  #   container_name: etan-backend
-  #   env_file: ./backend/.env
-  #   depends_on: [db]
-  #   restart: unless-stopped
-
-# volumes:
-#   etan_db:
+volumes:
+  etan_db:
+  etan_uploads:

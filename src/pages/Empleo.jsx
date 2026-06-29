@@ -4,6 +4,7 @@ import Encabezado from '../components/util/Encabezado.jsx'
 import Aparecer from '../components/util/Aparecer.jsx'
 import useSeo from '../hooks/useSeo.js'
 import { BUSQUEDAS } from '../data/busquedas.js'
+import { enviarPostulacion } from '../lib/api.js'
 import '../styles/formulario.css'
 
 const VACIO = { nombre: '', telefono: '', email: '', puesto: '', mensaje: '' }
@@ -18,15 +19,32 @@ export default function Empleo() {
   const [datos, setDatos] = useState(VACIO)
   const [archivo, setArchivo] = useState(null)
   const [enviado, setEnviado] = useState(false)
+  const [enviando, setEnviando] = useState(false)
+  const [error, setError] = useState('')
 
   function actualizar(campo, valor) {
     setDatos((d) => ({ ...d, [campo]: valor }))
   }
 
-  function enviar(e) {
+  async function enviar(e) {
     e.preventDefault()
-    // El envío real (con el CV) se conecta al backend en la próxima etapa.
-    setEnviado(true)
+    if (!archivo) {
+      setError('Adjuntá tu currículum en PDF.')
+      return
+    }
+    setError('')
+    setEnviando(true)
+    try {
+      const formData = new FormData()
+      Object.entries(datos).forEach(([k, v]) => formData.append(k, v))
+      formData.append('cv', archivo)
+      await enviarPostulacion(formData)
+      setEnviado(true)
+    } catch (err) {
+      setError(err.message || 'No pudimos enviar tu postulación. Probá de nuevo.')
+    } finally {
+      setEnviando(false)
+    }
   }
 
   return (
@@ -149,8 +167,10 @@ export default function Empleo() {
                 />
               </div>
 
-              <button type="submit" className="boton boton--principal formE__enviar">
-                Enviar postulación
+              {error && <p className="formE__ayuda" style={{ color: 'var(--error)' }}>{error}</p>}
+
+              <button type="submit" className="boton boton--principal formE__enviar" disabled={enviando}>
+                {enviando ? 'Enviando…' : 'Enviar postulación'}
               </button>
             </form>
           </Aparecer>

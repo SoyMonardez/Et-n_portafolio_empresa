@@ -8,6 +8,10 @@ export default defineConfig({
     port: 5174,
     // En Windows el watcher a veces no detecta cambios sin polling.
     watch: { usePolling: true },
+    proxy: {
+      '/api': { target: 'http://localhost:4000', changeOrigin: true, rewrite: (p) => p.replace(/^\/api/, '') },
+      '/uploads': { target: 'http://localhost:4000', changeOrigin: true },
+    },
   },
   build: {
     // Separar librerías grandes en su propio chunk ayuda al rendimiento.
