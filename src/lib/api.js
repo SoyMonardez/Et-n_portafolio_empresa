@@ -71,3 +71,17 @@ export async function obtenerBusquedas() {
 export async function obtenerConfig() {
   return (await getContenido('config'))?.config ?? null;
 }
+
+// Registra una visita (beacon). "Fire and forget": no esperamos respuesta
+// ni rompemos nada si falla. Se usa keepalive para que llegue aunque el
+// usuario navegue enseguida.
+export function registrarVisita(datos) {
+  try {
+    fetch(`${BASE}/track`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(datos),
+      keepalive: true,
+    }).catch(() => {});
+  } catch { /* ignorar */ }
+}

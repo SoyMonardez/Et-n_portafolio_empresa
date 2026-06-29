@@ -4,6 +4,7 @@ import { obtenerResumen, limpiarToken } from '../lib/adminApi.js'
 import AdminBandeja, { BANDEJAS } from './AdminBandeja.jsx'
 import AdminContenido, { TIPOS } from './AdminContenido.jsx'
 import AdminConfig from './AdminConfig.jsx'
+import AdminAnalitica from './AdminAnalitica.jsx'
 
 const SOLICITUDES = Object.entries(BANDEJAS).map(([id, b]) => ({ id, etiqueta: b.etiqueta }))
 const CONTENIDO = Object.entries(TIPOS).map(([id, t]) => ({ id, etiqueta: t.etiqueta }))
@@ -34,6 +35,13 @@ export default function AdminPanel({ onSalir }) {
       <aside className="admin-panel__menu">
         <h1 className="admin-panel__marca">ETÁN</h1>
         <nav>
+          <button
+            className={`admin-panel__item ${vista.id === 'analitica' ? 'admin-panel__item--on' : ''}`}
+            onClick={() => setVista({ grupo: 'analitica', id: 'analitica' })}
+          >
+            Visitas y métricas
+          </button>
+
           <p className="admin-panel__grupo">Solicitudes</p>
           {SOLICITUDES.map((b) => (
             <button
@@ -69,6 +77,7 @@ export default function AdminPanel({ onSalir }) {
       </aside>
 
       <main className="admin-panel__contenido">
+        {vista.grupo === 'analitica' && <AdminAnalitica {...props} />}
         {vista.grupo === 'solicitudes' && (
           <AdminBandeja key={vista.id} tipo={vista.id} {...props} />
         )}

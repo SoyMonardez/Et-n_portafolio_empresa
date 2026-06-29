@@ -2,6 +2,7 @@ import { Suspense, lazy } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import Layout from './components/layout/Layout.jsx'
 import IrArriba from './components/util/IrArriba.jsx'
+import Analitica from './components/util/Analitica.jsx'
 
 // Carga diferida: cada página se descarga solo cuando se visita.
 const Inicio = lazy(() => import('./pages/Inicio.jsx'))
@@ -35,6 +36,7 @@ export default function App() {
   return (
     <Layout>
       <IrArriba />
+      <Analitica />
       <Suspense fallback={<Cargando />}>
         <Routes>
           <Route path="/" element={<Inicio />} />

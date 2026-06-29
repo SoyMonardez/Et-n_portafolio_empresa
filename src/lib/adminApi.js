@@ -88,3 +88,8 @@ export async function guardarConfig(config) {
   })
   return manejar(res)
 }
+
+export async function obtenerAnalitica(dias = 30) {
+  const res = await fetch(`${BASE}/admin-analitica?dias=${dias}`, { headers: conAuth() })
+  return manejar(res)
+}

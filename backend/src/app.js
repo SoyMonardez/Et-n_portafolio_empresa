@@ -14,6 +14,8 @@ import authRouter from './routes/auth.js';
 import adminRouter from './routes/admin.js';
 import contenidoRouter from './routes/contenido.js';
 import adminContenidoRouter from './routes/adminContenido.js';
+import trackRouter from './routes/track.js';
+import adminAnaliticaRouter from './routes/adminAnalitica.js';
 
 export function buildApp() {
   const app = express();
@@ -48,6 +50,8 @@ export function buildApp() {
   app.use('/admin', adminRouter);
   app.use('/contenido', contenidoRouter);
   app.use('/admin-contenido', adminContenidoRouter);
+  app.use('/track', trackRouter);
+  app.use('/admin-analitica', adminAnaliticaRouter);
 
   app.use(notFoundHandler);
   app.use(errorHandler);
