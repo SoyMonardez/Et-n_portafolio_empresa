@@ -1,7 +1,12 @@
 import Encabezado from '../components/util/Encabezado.jsx'
 import Aparecer from '../components/util/Aparecer.jsx'
+import useSeo from '../hooks/useSeo.js'
 
 export default function Legal() {
+  useSeo({
+    titulo: 'Política de privacidad y cookies',
+    descripcion: 'Cómo usamos los datos de los formularios y las cookies en el sitio de Etán.',
+  })
   return (
     <>
       <Encabezado

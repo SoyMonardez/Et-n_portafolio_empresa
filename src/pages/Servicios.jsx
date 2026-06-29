@@ -3,8 +3,14 @@ import { FiArrowRight } from 'react-icons/fi'
 import Encabezado from '../components/util/Encabezado.jsx'
 import Servicios from '../components/inicio/Servicios.jsx'
 import Aparecer from '../components/util/Aparecer.jsx'
+import useSeo from '../hooks/useSeo.js'
 
 export default function ServiciosPagina() {
+  useSeo({
+    titulo: 'Servicios',
+    descripcion:
+      'Demolición, piedra bola, veredas, obra civil y mantenimiento de campamentos mineros. Servicios de Etán en San Juan.',
+  })
   return (
     <>
       <Encabezado

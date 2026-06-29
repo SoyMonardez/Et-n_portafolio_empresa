@@ -9,9 +9,15 @@ import LineaTiempo from '../components/inicio/LineaTiempo.jsx'
 import Principios from '../components/inicio/Principios.jsx'
 import Testimonios from '../components/inicio/Testimonios.jsx'
 import Aparecer from '../components/util/Aparecer.jsx'
+import useSeo from '../hooks/useSeo.js'
 import './Inicio.css'
 
 export default function Inicio() {
+  useSeo({
+    titulo: 'Empresa constructora en San Juan',
+    descripcion:
+      'Etán: empresa constructora de San Juan desde 2003. Demolición, piedra bola, veredas, obra civil y alquiler de maquinaria para municipios y empresas.',
+  })
   return (
     <>
       <Hero />

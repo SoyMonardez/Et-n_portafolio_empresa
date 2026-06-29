@@ -25,4 +25,28 @@ export const PROYECTOS = [
     anio: '2021',
     img: '/img/proyecto-3.jpg',
   },
+  {
+    id: 'obra-civil-sanluis',
+    titulo: 'Movimiento de suelos y obra civil',
+    categoria: 'Obra civil',
+    lugar: 'San Luis',
+    anio: '2023',
+    img: '/img/serv-obra.jpg',
+  },
+  {
+    id: 'demolicion-galpon',
+    titulo: 'Demolición de galpón industrial',
+    categoria: 'Demolición',
+    lugar: 'Ciudad de San Juan',
+    anio: '2022',
+    img: '/img/serv-demolicion.jpg',
+  },
+  {
+    id: 'veredas-capital',
+    titulo: 'Cordón cuneta y solados',
+    categoria: 'Veredas',
+    lugar: 'Capital',
+    anio: '2024',
+    img: '/img/serv-veredas.jpg',
+  },
 ]

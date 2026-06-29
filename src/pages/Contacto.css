@@ -1,0 +1,40 @@
+.contacto__grid {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 50px;
+  align-items: start;
+}
+.contacto__datos {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.contacto__dato {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.contacto__dato-icono {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--brand-suave);
+  color: var(--brand);
+  font-size: 1.1rem;
+}
+.contacto__dato-etiqueta {
+  font-size: 0.82rem;
+  color: var(--text-suave);
+}
+.contacto__dato-valor {
+  font-weight: 600;
+}
+
+@media (max-width: 860px) {
+  .contacto__grid {
+    grid-template-columns: 1fr;
+  }
+}
