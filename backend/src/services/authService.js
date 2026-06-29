@@ -5,21 +5,21 @@ import { env } from '../config/env.js';
 import { badRequest, unauthorized } from '../utils/httpError.js';
 
 export const authService = {
-  async login(email, password) {
-    if (!email || !password) throw badRequest('Faltan credenciales');
+  async login(usuario, password) {
+    if (!usuario || !password) throw badRequest('Faltan credenciales');
 
-    const admin = await adminRepo.findByEmail(email.trim().toLowerCase());
-    if (!admin) throw unauthorized('Email o contraseña incorrectos');
+    const admin = await adminRepo.findByUsuario(usuario.trim().toLowerCase());
+    if (!admin) throw unauthorized('Usuario o contraseña incorrectos');
 
     const ok = await bcrypt.compare(password, admin.password_hash);
-    if (!ok) throw unauthorized('Email o contraseña incorrectos');
+    if (!ok) throw unauthorized('Usuario o contraseña incorrectos');
 
     const token = jwt.sign(
-      { sub: admin.id, email: admin.email },
+      { sub: admin.id, usuario: admin.usuario },
       env.jwt.secret,
       { expiresIn: env.jwt.expiresIn }
     );
 
-    return { token, user: { email: admin.email } };
+    return { token, user: { usuario: admin.usuario } };
   },
 };

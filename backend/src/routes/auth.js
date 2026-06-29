@@ -6,8 +6,8 @@ import { asyncHandler } from '../middlewares/asyncHandler.js';
 const router = Router();
 
 router.post('/login', loginRateLimiter, asyncHandler(async (req, res) => {
-  const { email, password } = req.body || {};
-  const result = await authService.login(email, password);
+  const { usuario, password } = req.body || {};
+  const result = await authService.login(usuario, password);
   res.json({ ok: true, ...result });
 }));
 

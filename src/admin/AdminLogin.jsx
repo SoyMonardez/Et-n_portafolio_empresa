@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { login, setToken } from '../lib/adminApi.js'
 
 export default function AdminLogin({ onIngreso }) {
-  const [email, setEmail] = useState('')
+  const [usuario, setUsuario] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [cargando, setCargando] = useState(false)
@@ -12,7 +12,7 @@ export default function AdminLogin({ onIngreso }) {
     setError('')
     setCargando(true)
     try {
-      const { token } = await login(email, password)
+      const { token } = await login(usuario, password)
       setToken(token)
       onIngreso()
     } catch (err) {
@@ -29,13 +29,13 @@ export default function AdminLogin({ onIngreso }) {
         <p className="admin-login__bajada">Panel de administración</p>
 
         <div className="formE__campo">
-          <label htmlFor="a-email">Email</label>
+          <label htmlFor="a-usuario">Usuario</label>
           <input
-            id="a-email"
-            type="email"
+            id="a-usuario"
+            type="text"
             required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={usuario}
+            onChange={(e) => setUsuario(e.target.value)}
             autoFocus
           />
         </div>
