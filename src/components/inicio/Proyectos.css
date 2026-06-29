@@ -46,7 +46,7 @@
   left: 16px;
 }
 .proy-card__categoria {
-  background: rgba(255, 255, 255, 0.16);
+  background: rgba(10, 10, 12, 0.6);
   backdrop-filter: blur(4px);
   color: #fff;
   font-family: var(--font-dato);
