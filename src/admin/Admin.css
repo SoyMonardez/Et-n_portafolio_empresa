@@ -78,6 +78,14 @@
   padding: 1px 7px;
   border-radius: 999px;
 }
+.admin-panel__grupo {
+  margin: 18px 12px 6px;
+  font-family: var(--font-dato);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-suave);
+}
 .admin-panel__salir {
   margin-top: auto;
   display: flex;
@@ -160,7 +168,103 @@
   text-decoration: underline;
 }
 
+/* Cabecera de sección de contenido (título + botón agregar) */
+.admin-cab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+.admin-cab .admin-panel__titulo { margin-bottom: 0; }
+
+/* Lista de items de contenido */
+.admin-items {
+  display: grid;
+  gap: 12px;
+}
+.admin-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 14px;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  background: var(--surface);
+}
+.admin-item__foto {
+  flex: none;
+  width: 86px;
+  height: 60px;
+  border-radius: var(--radio-chico);
+  overflow: hidden;
+  background: var(--surface-2);
+  display: grid;
+  place-items: center;
+}
+.admin-item__foto img { width: 100%; height: 100%; object-fit: cover; }
+.admin-item__sinfoto { font-size: 0.7rem; color: var(--text-suave); }
+.admin-item__cuerpo { flex: 1; min-width: 0; }
+.admin-item__cuerpo h3 { font-size: 1.02rem; margin-bottom: 3px; }
+.admin-item__meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  color: var(--text-suave);
+}
+.admin-item__oculto {
+  font-size: 0.7rem;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  border: 1px solid var(--borde);
+}
+.admin-item__acciones { display: flex; gap: 6px; flex: none; }
+.admin-item__acciones button {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radio-chico);
+  border: 1px solid var(--borde);
+  color: var(--text-suave);
+}
+.admin-item__acciones button:hover { background: var(--surface-2); color: var(--text); }
+
+/* Formulario de alta/edición */
+.admin-form {
+  margin-bottom: 26px;
+  padding: 22px;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  background: var(--surface);
+}
+.admin-form__cab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+.admin-form__cab h3 { font-size: 1.1rem; }
+.admin-form__cab button {
+  display: grid; place-items: center;
+  width: 34px; height: 34px; border-radius: 50%;
+  color: var(--text-suave);
+}
+.admin-form__cab button:hover { background: var(--surface-2); color: var(--text); }
+.admin-check {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 0.92rem;
+  color: var(--text);
+}
+.admin-check input { width: 18px; height: 18px; }
+
 @media (max-width: 860px) {
+  .admin-panel__grupo { display: none; }
   .admin-panel {
     grid-template-columns: 1fr;
   }

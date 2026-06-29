@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom'
 import { FiInstagram, FiFacebook, FiPhone, FiMail, FiMapPin } from 'react-icons/fi'
 import { NAV } from '../../config/rutas.js'
+import useConfig from '../../hooks/useConfig.js'
 import './Footer.css'
 
 export default function Footer() {
   const anio = new Date().getFullYear()
+  const cfg = useConfig()
 
   return (
     <footer className="footer">
@@ -16,9 +18,12 @@ export default function Footer() {
             obra civil y alquiler de maquinaria. Más de 20 años de trayectoria.
           </p>
           <div className="footer__redes">
-            {/* Los enlaces reales se cargarán desde el panel de administración */}
-            <a href="#" aria-label="Instagram" className="footer__red"><FiInstagram /></a>
-            <a href="#" aria-label="Facebook" className="footer__red"><FiFacebook /></a>
+            {cfg.instagram && (
+              <a href={cfg.instagram} target="_blank" rel="noreferrer" aria-label="Instagram" className="footer__red"><FiInstagram /></a>
+            )}
+            {cfg.facebook && (
+              <a href={cfg.facebook} target="_blank" rel="noreferrer" aria-label="Facebook" className="footer__red"><FiFacebook /></a>
+            )}
           </div>
         </div>
 
@@ -33,9 +38,9 @@ export default function Footer() {
 
         <div className="footer__col">
           <h3 className="footer__titulo">Contacto</h3>
-          <p className="footer__dato"><FiPhone /> A confirmar</p>
-          <p className="footer__dato"><FiMail /> A confirmar</p>
-          <p className="footer__dato"><FiMapPin /> San Juan, Argentina</p>
+          <p className="footer__dato"><FiPhone /> {cfg.telefono || 'A confirmar'}</p>
+          <p className="footer__dato"><FiMail /> {cfg.email || 'A confirmar'}</p>
+          <p className="footer__dato"><FiMapPin /> {cfg.direccion || 'San Juan, Argentina'}</p>
         </div>
       </div>
 

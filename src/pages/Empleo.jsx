@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FiCheck, FiMapPin, FiClock, FiUpload } from 'react-icons/fi'
 import Encabezado from '../components/util/Encabezado.jsx'
 import Aparecer from '../components/util/Aparecer.jsx'
 import useSeo from '../hooks/useSeo.js'
 import { BUSQUEDAS } from '../data/busquedas.js'
-import { enviarPostulacion } from '../lib/api.js'
+import { enviarPostulacion, obtenerBusquedas } from '../lib/api.js'
 import '../styles/formulario.css'
 
 const VACIO = { nombre: '', telefono: '', email: '', puesto: '', mensaje: '' }
@@ -16,8 +16,15 @@ export default function Empleo() {
       'Búsquedas laborales activas en Etán y formulario para dejar tu CV y postularte a futuras oportunidades en San Juan.',
   })
 
+  const [busquedas, setBusquedas] = useState(BUSQUEDAS)
   const [datos, setDatos] = useState(VACIO)
   const [archivo, setArchivo] = useState(null)
+
+  useEffect(() => {
+    obtenerBusquedas().then((items) => {
+      if (items) setBusquedas(items)
+    })
+  }, [])
   const [enviado, setEnviado] = useState(false)
   const [enviando, setEnviando] = useState(false)
   const [error, setError] = useState('')
@@ -58,13 +65,13 @@ export default function Empleo() {
         <h2 className="seccion__titulo" style={{ fontSize: '1.4rem', marginBottom: 20 }}>
           Búsquedas activas
         </h2>
-        {BUSQUEDAS.length === 0 ? (
+        {busquedas.length === 0 ? (
           <p style={{ color: 'var(--text-suave)', marginBottom: 40 }}>
             Por ahora no tenemos búsquedas activas, pero podés dejarnos tu CV para futuras oportunidades.
           </p>
         ) : (
           <div style={{ display: 'grid', gap: 14, marginBottom: 50 }}>
-            {BUSQUEDAS.map((b, i) => (
+            {busquedas.map((b, i) => (
               <Aparecer key={b.id} delay={i * 0.06}>
                 <article
                   style={{

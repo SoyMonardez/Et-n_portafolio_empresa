@@ -1,12 +1,33 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FiArrowUpRight, FiArrowRight } from 'react-icons/fi'
 import { PROYECTOS } from '../../data/proyectos.js'
+import { obtenerObras } from '../../lib/api.js'
 import Aparecer from '../util/Aparecer.jsx'
 import './Proyectos.css'
 
-// Proyectos destacados con botón "Ver más". Las portadas usan un marcador
-// de color hasta que se carguen las fotos reales desde el admin.
+const normalizar = (o) => ({
+  id: o.id,
+  titulo: o.titulo,
+  categoria: o.categoria,
+  lugar: o.lugar,
+  anio: o.anio,
+  img: o.imagen_url || o.img,
+})
+
+// Muestra las 3 obras más recientes (del admin, con fallback al contenido
+// por defecto si el backend no responde) y un botón "Ver más".
 export default function Proyectos() {
+  const [proyectos, setProyectos] = useState(() => PROYECTOS.map(normalizar))
+
+  useEffect(() => {
+    obtenerObras().then((items) => {
+      if (items && items.length) setProyectos(items.map(normalizar))
+    })
+  }, [])
+
+  const destacados = proyectos.slice(0, 3)
+
   return (
     <section className="proys" id="proyectos">
       <div className="contenedor">
@@ -21,7 +42,7 @@ export default function Proyectos() {
         </div>
 
         <div className="proys__grid">
-          {PROYECTOS.map((p, i) => (
+          {destacados.map((p, i) => (
             <Aparecer key={p.id} delay={i * 0.08}>
               <Link to="/obras" className="proy-card">
                 <div className="proy-card__portada">

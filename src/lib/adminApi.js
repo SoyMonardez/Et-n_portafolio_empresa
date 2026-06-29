@@ -50,3 +50,41 @@ export async function actualizarEstado(nombre, id, estado) {
   })
   return manejar(res)
 }
+
+// --- Gestión de contenido (maquinaria, obras, búsquedas, config) ---
+const C = `${BASE}/admin-contenido`
+
+export async function listarContenido(tipo) {
+  const res = await fetch(`${C}/${tipo}`, { headers: conAuth() })
+  return manejar(res)
+}
+
+// Crea/edita usando FormData (soporta subir imagen en el mismo envío).
+export async function guardarContenido(tipo, id, formData) {
+  const url = id ? `${C}/${tipo}/${id}` : `${C}/${tipo}`
+  const res = await fetch(url, {
+    method: id ? 'PATCH' : 'POST',
+    headers: conAuth(),
+    body: formData,
+  })
+  return manejar(res)
+}
+
+export async function borrarContenido(tipo, id) {
+  const res = await fetch(`${C}/${tipo}/${id}`, { method: 'DELETE', headers: conAuth() })
+  return manejar(res)
+}
+
+export async function obtenerConfigAdmin() {
+  const res = await fetch(`${C}/config`, { headers: conAuth() })
+  return manejar(res)
+}
+
+export async function guardarConfig(config) {
+  const res = await fetch(`${C}/config`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', ...conAuth() },
+    body: JSON.stringify(config),
+  })
+  return manejar(res)
+}

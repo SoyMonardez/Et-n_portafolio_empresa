@@ -12,6 +12,8 @@ import alquilerRouter from './routes/alquiler.js';
 import postulacionesRouter from './routes/postulaciones.js';
 import authRouter from './routes/auth.js';
 import adminRouter from './routes/admin.js';
+import contenidoRouter from './routes/contenido.js';
+import adminContenidoRouter from './routes/adminContenido.js';
 
 export function buildApp() {
   const app = express();
@@ -44,6 +46,8 @@ export function buildApp() {
   app.use('/postulaciones', postulacionesRouter);
   app.use('/auth', authRouter);
   app.use('/admin', adminRouter);
+  app.use('/contenido', contenidoRouter);
+  app.use('/admin-contenido', adminContenidoRouter);
 
   app.use(notFoundHandler);
   app.use(errorHandler);

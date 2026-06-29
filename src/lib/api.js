@@ -42,3 +42,32 @@ export async function enviarPostulacion(formData) {
   });
   return manejarRespuesta(res);
 }
+
+// --- Contenido público (gestionado desde el admin) ---
+// Si el backend no responde, se devuelve null para que la página use su
+// contenido por defecto y nunca quede en blanco.
+async function getContenido(ruta) {
+  try {
+    const res = await fetch(`${BASE}/contenido/${ruta}`);
+    if (!res.ok) return null;
+    return await res.json();
+  } catch {
+    return null;
+  }
+}
+
+export async function obtenerMaquinas() {
+  return (await getContenido('maquinas'))?.items ?? null;
+}
+
+export async function obtenerObras() {
+  return (await getContenido('obras'))?.items ?? null;
+}
+
+export async function obtenerBusquedas() {
+  return (await getContenido('busquedas'))?.items ?? null;
+}
+
+export async function obtenerConfig() {
+  return (await getContenido('config'))?.config ?? null;
+}

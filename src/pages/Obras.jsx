@@ -1,11 +1,21 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FiArrowRight } from 'react-icons/fi'
 import Encabezado from '../components/util/Encabezado.jsx'
 import Aparecer from '../components/util/Aparecer.jsx'
 import useSeo from '../hooks/useSeo.js'
 import { PROYECTOS } from '../data/proyectos.js'
+import { obtenerObras } from '../lib/api.js'
 import '../styles/catalogo.css'
+
+const normalizar = (o) => ({
+  id: o.id,
+  titulo: o.titulo,
+  categoria: o.categoria,
+  lugar: o.lugar,
+  anio: o.anio,
+  img: o.imagen_url || o.img,
+})
 
 export default function Obras() {
   useSeo({
@@ -14,12 +24,20 @@ export default function Obras() {
       'Galería de obras de Etán: demolición, veredas, piedra bola y obra civil ejecutadas en San Juan y San Luis.',
   })
 
-  const categorias = useMemo(
-    () => ['Todas', ...new Set(PROYECTOS.map((p) => p.categoria))],
-    []
-  )
+  const [obras, setObras] = useState(() => PROYECTOS.map(normalizar))
   const [filtro, setFiltro] = useState('Todas')
-  const lista = filtro === 'Todas' ? PROYECTOS : PROYECTOS.filter((p) => p.categoria === filtro)
+
+  useEffect(() => {
+    obtenerObras().then((items) => {
+      if (items && items.length) setObras(items.map(normalizar))
+    })
+  }, [])
+
+  const categorias = useMemo(
+    () => ['Todas', ...new Set(obras.map((p) => p.categoria))],
+    [obras]
+  )
+  const lista = filtro === 'Todas' ? obras : obras.filter((p) => p.categoria === filtro)
 
   return (
     <>

@@ -3,25 +3,26 @@ import { FiCheck, FiPhone, FiMail, FiMapPin, FiClock } from 'react-icons/fi'
 import Encabezado from '../components/util/Encabezado.jsx'
 import Aparecer from '../components/util/Aparecer.jsx'
 import useSeo from '../hooks/useSeo.js'
+import useConfig from '../hooks/useConfig.js'
 import { enviarContacto } from '../lib/api.js'
 import '../styles/formulario.css'
 import './Contacto.css'
 
 const VACIO = { nombre: '', email: '', telefono: '', mensaje: '' }
 
-// Datos de contacto (borrador). Se administran desde site_config en el panel.
-const DATOS_CONTACTO = [
-  { icono: FiPhone, etiqueta: 'Teléfono / WhatsApp', valor: 'A confirmar' },
-  { icono: FiMail, etiqueta: 'Email', valor: 'A confirmar' },
-  { icono: FiMapPin, etiqueta: 'Ubicación', valor: 'San Juan, Argentina' },
-  { icono: FiClock, etiqueta: 'Horario', valor: 'Lunes a viernes, 8 a 18 hs' },
-]
-
 export default function Contacto() {
   useSeo({
     titulo: 'Contacto',
     descripcion: 'Comunicate con Etán: teléfono, email y formulario de contacto.',
   })
+
+  const cfg = useConfig()
+  const DATOS_CONTACTO = [
+    { icono: FiPhone, etiqueta: 'Teléfono / WhatsApp', valor: cfg.telefono || 'A confirmar' },
+    { icono: FiMail, etiqueta: 'Email', valor: cfg.email || 'A confirmar' },
+    { icono: FiMapPin, etiqueta: 'Ubicación', valor: cfg.direccion || 'San Juan, Argentina' },
+    { icono: FiClock, etiqueta: 'Horario', valor: 'Lunes a viernes, 8 a 18 hs' },
+  ]
 
   const [datos, setDatos] = useState(VACIO)
   const [enviado, setEnviado] = useState(false)
