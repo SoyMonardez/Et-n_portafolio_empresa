@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react'
-import { FiPlus, FiEdit2, FiTrash2, FiX } from 'react-icons/fi'
-import { listarContenido, guardarContenido, borrarContenido, limpiarToken } from '../lib/adminApi.js'
+import { FiPlus, FiEdit2, FiTrash2, FiX, FiZap } from 'react-icons/fi'
+import { listarContenido, guardarContenido, borrarContenido, sugerirDescripcion, limpiarToken } from '../lib/adminApi.js'
 
 // Configuración de cada tipo gestionable: qué campos tiene, si lleva imagen,
 // y cuál es el campo de "visible/activo".
@@ -142,9 +142,33 @@ function FormularioContenido({ cfg, tipo, inicial, onCerrar, onGuardado }) {
   const [archivo, setArchivo] = useState(null)
   const [guardando, setGuardando] = useState(false)
   const [error, setError] = useState('')
+  const [sugiriendo, setSugiriendo] = useState(false)
+
+  const campoArea = cfg.campos.find((c) => c.tipo === 'area')
 
   function set(campo, v) {
     setValores((prev) => ({ ...prev, [campo]: v }))
+  }
+
+  async function sugerir() {
+    if (!valores.nombre) {
+      setError('Escribí primero el nombre para que la IA sugiera una descripción.')
+      return
+    }
+    setError('')
+    setSugiriendo(true)
+    try {
+      const { texto } = await sugerirDescripcion({
+        tipo: tipo === 'maquinas' ? 'maquina' : 'obra',
+        nombre: valores.nombre,
+        categoria: valores.categoria,
+      })
+      set(campoArea.id, texto)
+    } catch (err) {
+      setError(err.message || 'No pudimos generar la descripción.')
+    } finally {
+      setSugiriendo(false)
+    }
   }
 
   async function enviar(e) {
@@ -174,7 +198,14 @@ function FormularioContenido({ cfg, tipo, inicial, onCerrar, onGuardado }) {
       <form className="formE" onSubmit={enviar}>
         {cfg.campos.map((c) => (
           <div key={c.id} className={`formE__campo ${c.tipo === 'area' ? 'formE__campo--ancho' : ''}`}>
-            <label htmlFor={`f-${c.id}`}>{c.label}</label>
+            <label htmlFor={`f-${c.id}`}>
+              {c.label}
+              {c.tipo === 'area' && (
+                <button type="button" className="admin-ia-btn" onClick={sugerir} disabled={sugiriendo}>
+                  <FiZap /> {sugiriendo ? 'Generando…' : 'Sugerir con IA'}
+                </button>
+              )}
+            </label>
             {c.tipo === 'area' ? (
               <textarea id={`f-${c.id}`} value={valores[c.id]} required={c.req}
                 onChange={(e) => set(c.id, e.target.value)} />

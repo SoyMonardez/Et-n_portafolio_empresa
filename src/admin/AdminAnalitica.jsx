@@ -3,7 +3,8 @@ import {
   ResponsiveContainer, AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell,
   XAxis, YAxis, Tooltip, CartesianGrid,
 } from 'recharts'
-import { obtenerAnalitica, limpiarToken } from '../lib/adminApi.js'
+import { FiZap } from 'react-icons/fi'
+import { obtenerAnalitica, analizarMetricas, limpiarToken } from '../lib/adminApi.js'
 
 const PERIODOS = [
   { dias: 7, label: '7 días' },
@@ -24,10 +25,28 @@ export default function AdminAnalitica({ onSesionVencida }) {
   const [data, setData] = useState(null)
   const [cargando, setCargando] = useState(true)
   const [error, setError] = useState('')
+  const [analisis, setAnalisis] = useState('')
+  const [analizando, setAnalizando] = useState(false)
+  const [errorIa, setErrorIa] = useState('')
+
+  async function analizar() {
+    setErrorIa('')
+    setAnalizando(true)
+    try {
+      const { texto } = await analizarMetricas(dias)
+      setAnalisis(texto)
+    } catch (err) {
+      setErrorIa(err.message || 'No pudimos generar el análisis.')
+    } finally {
+      setAnalizando(false)
+    }
+  }
 
   const cargar = useCallback(async () => {
     setCargando(true)
     setError('')
+    setAnalisis('')
+    setErrorIa('')
     try {
       const d = await obtenerAnalitica(dias)
       setData(d)
@@ -79,6 +98,22 @@ export default function AdminAnalitica({ onSesionVencida }) {
             <Card titulo="Alquileres" valor={data.conversiones.alquiler} />
             <Card titulo="Postulaciones" valor={data.conversiones.postulaciones} />
           </div>
+
+          {/* Sugerencias de marketing con IA */}
+          <section className="ana-panel ana-ia">
+            <div className="ana-ia__cab">
+              <h3 className="ana-panel__titulo" style={{ marginBottom: 0 }}>Sugerencias de marketing</h3>
+              <button className="boton boton--principal" onClick={analizar} disabled={analizando}>
+                <FiZap /> {analizando ? 'Analizando…' : 'Analizar y sugerir'}
+              </button>
+            </div>
+            {errorIa && <p className="formE__ayuda" style={{ color: 'var(--error)' }}>{errorIa}</p>}
+            {analisis
+              ? <div className="ana-ia__texto">{analisis.split('\n').filter(Boolean).map((l, i) => <p key={i}>{l}</p>)}</div>
+              : !errorIa && <p style={{ color: 'var(--text-suave)', fontSize: '0.9rem' }}>
+                  Tocá "Analizar y sugerir" y la IA te recomienda, en palabras simples, a qué público apuntar y qué mejorar.
+                </p>}
+          </section>
 
           {/* Visitas por día */}
           <Panel titulo="Visitas por día">

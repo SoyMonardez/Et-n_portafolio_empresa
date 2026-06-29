@@ -263,8 +263,40 @@
 }
 .admin-check input { width: 18px; height: 18px; }
 
+/* Botón "Sugerir con IA" dentro de un label de formulario */
+.admin-ia-btn {
+  margin-left: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--brand);
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--borde);
+  vertical-align: middle;
+}
+.admin-ia-btn:hover { background: var(--surface-2); }
+.admin-ia-btn:disabled { opacity: 0.6; cursor: default; }
+
 /* Analítica */
 .ana-periodos { display: flex; gap: 8px; }
+.ana-ia__cab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.ana-ia__texto p {
+  color: var(--text);
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+.ana-ia__texto p:last-child { margin-bottom: 0; }
 .ana { display: flex; flex-direction: column; gap: 18px; }
 .ana-cards {
   display: grid;

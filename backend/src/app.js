@@ -16,6 +16,7 @@ import contenidoRouter from './routes/contenido.js';
 import adminContenidoRouter from './routes/adminContenido.js';
 import trackRouter from './routes/track.js';
 import adminAnaliticaRouter from './routes/adminAnalitica.js';
+import iaRouter from './routes/ia.js';
 
 export function buildApp() {
   const app = express();
@@ -52,6 +53,7 @@ export function buildApp() {
   app.use('/admin-contenido', adminContenidoRouter);
   app.use('/track', trackRouter);
   app.use('/admin-analitica', adminAnaliticaRouter);
+  app.use('/ia', iaRouter);
 
   app.use(notFoundHandler);
   app.use(errorHandler);

@@ -93,3 +93,21 @@ export async function obtenerAnalitica(dias = 30) {
   const res = await fetch(`${BASE}/admin-analitica?dias=${dias}`, { headers: conAuth() })
   return manejar(res)
 }
+
+export async function sugerirDescripcion(datos) {
+  const res = await fetch(`${BASE}/ia/sugerir-descripcion`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...conAuth() },
+    body: JSON.stringify(datos),
+  })
+  return manejar(res)
+}
+
+export async function analizarMetricas(dias) {
+  const res = await fetch(`${BASE}/ia/analizar-metricas`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...conAuth() },
+    body: JSON.stringify({ dias }),
+  })
+  return manejar(res)
+}

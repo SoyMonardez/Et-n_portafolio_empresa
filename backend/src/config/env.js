@@ -60,4 +60,11 @@ export const env = Object.freeze({
     secret: process.env.JWT_SECRET || 'dev-secret-no-usar-en-produccion-cambiar-esto',
     expiresIn: process.env.JWT_EXPIRES_IN || '7d',
   },
+
+  // IA (Groq/Llama). El token vive solo acá en el server; el navegador
+  // nunca lo ve, habla con nuestro backend que hace de proxy.
+  groq: {
+    apiKey: process.env.GROQ_API_KEY || '',
+    model: process.env.GROQ_MODEL || 'llama-3.3-70b-versatile',
+  },
 });
