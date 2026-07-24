@@ -1,6 +1,6 @@
-/* ============================================================
-   Etán — estilo editorial neutro (tipo revista)
-   Blanco / negro / gris. La jerarquía la dan la tipografía,
+﻿/* ============================================================
+   EtÃ¡n â€” estilo editorial neutro (tipo revista)
+   Blanco / negro / gris. La jerarquÃ­a la dan la tipografÃ­a,
    las fotos y el espacio, no el color.
    Tema claro por defecto; oscuro con <html data-theme="oscuro">.
    ============================================================ */
@@ -9,36 +9,44 @@
   /* Tinta (color principal) */
   --brand: #16161a;
   --brand-fuerte: #000000;
-  --brand-suave: #ecebe6;
+  --brand-suave: #eef3f5;
 
   /* Acento monocromo (mismo tono que la tinta) */
   --accent: #16161a;
-  --accent-fuerte: #6e6e70;
+  --accent-fuerte: #6f8994;
 
   /* Superficies y texto (tema claro) */
-  --bg: #f4f3f0;
+  --bg: #f6f7f5;
   --surface: #ffffff;
-  --surface-2: #ecebe6;
+  --surface-2: #eef1ef;
   --text: #16161a;
   --text-suave: #6e6e70;
-  --borde: #e0dfda;
+  --borde: #dcdfdc;
+  --icon-bg: #eef3f5;
+  --icon-fg: #16161a;
+  --icon-active-bg: #16161a;
+  --icon-active-fg: #ffffff;
 
   /* Estados */
   --ok: #2e7d54;
   --error: #b5402f;
 
-  /* Tipografía */
+  /* TipografÃ­a */
   --font-titulo: 'Archivo', 'Segoe UI', system-ui, sans-serif;
   --font-serif: 'Fraunces', Georgia, serif;
   --font-texto: 'Hanken Grotesk', 'Segoe UI', system-ui, sans-serif;
   --font-dato: 'Spline Sans Mono', ui-monospace, monospace;
+  /* Solo para la marca gigante del hero: misma familia que los tÃ­tulos
+     (Archivo) pero en su corte mÃ¡s pesado (900) y con tracking apretado,
+     estilo wordmark editorial (referencia que pasÃ³ el usuario: GAZU/Off-White). */
+  --font-marca: var(--font-titulo);
 
   /* Medidas */
-  --radio: 14px;
-  --radio-chico: 10px;
-  --sombra: 0 8px 28px rgba(20, 20, 26, 0.08);
-  --sombra-fuerte: 0 20px 56px rgba(20, 20, 26, 0.16);
-  --ancho-max: 1280px;
+  --radio: 8px;
+  --radio-chico: 6px;
+  --sombra: 0 10px 30px rgba(20, 20, 26, 0.06);
+  --sombra-fuerte: 0 24px 70px rgba(20, 20, 26, 0.12);
+  --ancho-max: 1320px;
   --transicion: 240ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -56,6 +64,10 @@
   --text: #f2f1ed;
   --text-suave: #9a9a9c;
   --borde: #2a2a2c;
+  --icon-bg: #242428;
+  --icon-fg: #f2f1ed;
+  --icon-active-bg: #f2f1ed;
+  --icon-active-fg: #16161a;
 
   --ok: #4caf7d;
   --error: #e07a6a;
@@ -63,3 +75,4 @@
   --sombra: 0 8px 28px rgba(0, 0, 0, 0.5);
   --sombra-fuerte: 0 20px 56px rgba(0, 0, 0, 0.6);
 }
+

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- PENDIENTE: cuando se compre el dominio, cambiar cada <loc> de ruta
+     relativa a URL absoluta (https://www.dominio.com.ar/ruta), como pide
+     el protocolo de sitemaps. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>/</loc></url>
   <url><loc>/servicios</loc></url>

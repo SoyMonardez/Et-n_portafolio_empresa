@@ -22,6 +22,24 @@ router.post('/traducir', iaLimiter, asyncHandler(async (req, res) => {
   res.json({ ok: true, texto });
 }));
 
+// Limitador más amplio: el selector de idioma puede pedir varias tandas
+// chicas seguidas al navegar (con caché, casi todo es gratis igual).
+const loteLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 60,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Demasiados pedidos de traducción. Esperá un momento.' },
+});
+
+// Traduce varios textos cortos de una vez (pública: la usa el selector de
+// idioma para traducir el contenido visible del sitio).
+router.post('/traducir-lote', loteLimiter, asyncHandler(async (req, res) => {
+  const textos = Array.isArray(req.body?.textos) ? req.body.textos.slice(0, 200) : [];
+  const traducciones = await iaService.traducirLote(textos);
+  res.json({ ok: true, traducciones });
+}));
+
 // --- Funciones del admin (requieren login) ---
 router.post('/sugerir-descripcion', requireAuth, iaLimiter, asyncHandler(async (req, res) => {
   const { tipo, nombre, categoria, datos } = req.body || {};

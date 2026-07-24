@@ -7,7 +7,7 @@ import '../styles/formulario.css'
 import '../admin/Admin.css'
 
 export default function Admin() {
-  useSeo({ titulo: 'Panel de administración', descripcion: 'Acceso privado de Etán.' })
+  useSeo({ titulo: 'Panel de administración', descripcion: 'Acceso privado de Etán.', noindex: true })
   const [autenticado, setAutenticado] = useState(() => Boolean(getToken()))
 
   return autenticado

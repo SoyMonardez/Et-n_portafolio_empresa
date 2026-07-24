@@ -1,16 +1,12 @@
-import { Link } from 'react-router-dom'
-import { FiArrowRight } from 'react-icons/fi'
+import { Suspense, lazy } from 'react'
 import Hero from '../components/inicio/Hero.jsx'
-import Proyectos from '../components/inicio/Proyectos.jsx'
-import CarruselLogos from '../components/inicio/CarruselLogos.jsx'
-import Servicios from '../components/inicio/Servicios.jsx'
-import Contadores from '../components/inicio/Contadores.jsx'
-import LineaTiempo from '../components/inicio/LineaTiempo.jsx'
-import Principios from '../components/inicio/Principios.jsx'
-import Testimonios from '../components/inicio/Testimonios.jsx'
-import Aparecer from '../components/util/Aparecer.jsx'
 import useSeo from '../hooks/useSeo.js'
 import './Inicio.css'
+
+// El hero se carga de entrada (es lo primero que se ve y define el LCP).
+// El resto de las secciones se cargan aparte para no demorar ese primer
+// pintado; al estar debajo del pliegue, su llegada no provoca CLS.
+const InicioResto = lazy(() => import('./InicioResto.jsx'))
 
 export default function Inicio() {
   useSeo({
@@ -19,30 +15,15 @@ export default function Inicio() {
       'Etán: empresa constructora de San Juan desde 2003. Demolición, piedra bola, veredas, obra civil y alquiler de maquinaria para municipios y empresas.',
   })
   return (
-    <>
-      <Hero />
-      <Proyectos />
-      <CarruselLogos />
-      <Servicios />
-      <Contadores />
-      <LineaTiempo />
-      <Principios />
-      <Testimonios />
-
-      {/* Cierre */}
-      <section className="contenedor">
-        <Aparecer className="cierre">
-          <div className="cierre__texto">
-            <h2 className="cierre__titulo">¿Tenés una obra en mente?</h2>
-            <p className="cierre__bajada">
-              Contanos qué necesitás y te preparamos un presupuesto sin cargo.
-            </p>
-          </div>
-          <Link to="/presupuesto" className="boton boton--principal cierre__boton">
-            Solicitar presupuesto <FiArrowRight />
-          </Link>
-        </Aparecer>
-      </section>
-    </>
+    <div className="inicio-revelar">
+      <div className="inicio-revelar__sticky">
+        <Hero />
+      </div>
+      <div className="inicio-revelar__cubre">
+        <Suspense fallback={<div style={{ minHeight: '60vh' }} />}>
+          <InicioResto />
+        </Suspense>
+      </div>
+    </div>
   )
 }

@@ -1,5 +1,6 @@
 import { env } from '../config/env.js';
 import { HttpError, badRequest } from '../utils/httpError.js';
+import { traduccionRepo } from '../repositories/traduccionRepo.js';
 
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
@@ -80,4 +81,66 @@ export const iaService = {
       'Keep the tone and meaning. Return ONLY the translation, no quotes, no notes.';
     return pedir({ sistema, usuario: limpio, maxTokens: 1000, temperatura: 0.2 });
   },
+
+  // Traduce muchos textos cortos de una sola vez (selector de idioma del
+  // sitio público). Usa la caché en base para no volver a pagar por lo ya
+  // traducido, y solo le pide a la IA lo que falta.
+  async traducirLote(textos) {
+    const idioma = 'en';
+    // Mantenemos el mismo largo/orden que `textos` (sin filtrar vacíos acá)
+    // para poder devolver la respuesta alineada índice a índice.
+    const limpios = textos.map((t) => (typeof t === 'string' ? t.trim().slice(0, 600) : ''));
+    const unicos = [...new Set(limpios.filter(Boolean))];
+    if (!unicos.length) return limpios.map(() => null);
+
+    const hashes = unicos.map((t) => traduccionRepo.hashDe(t));
+    const enCache = await traduccionRepo.buscarVarias(idioma, hashes);
+
+    const resultado = new Map();
+    unicos.forEach((texto, i) => {
+      const cacheado = enCache.get(hashes[i]);
+      if (cacheado) resultado.set(texto, cacheado);
+    });
+
+    const faltantes = unicos.filter((t) => !resultado.has(t));
+
+    // Groq tiene límite de tokens por pedido: traducimos en tandas chicas.
+    const TANDA = 40;
+    for (let i = 0; i < faltantes.length; i += TANDA) {
+      const tanda = faltantes.slice(i, i + TANDA);
+      const traducidos = await traducirTanda(tanda);
+      const nuevos = [];
+      tanda.forEach((original, j) => {
+        const traducido = traducidos[j];
+        if (traducido) {
+          resultado.set(original, traducido);
+          nuevos.push({ original, traducido });
+        }
+      });
+      if (nuevos.length) await traduccionRepo.guardarVarias(idioma, nuevos);
+    }
+
+    // Devolvemos en el mismo orden y largo que `textos` (con duplicados).
+    return limpios.map((t) => resultado.get(t) || null);
+  },
 };
+
+// Le pide a la IA que traduzca una lista de textos cortos, devolviendo un
+// array JSON en el mismo orden. Si la IA contesta algo que no es JSON
+// válido, devolvemos null para cada texto en vez de romper el pedido.
+async function traducirTanda(textos) {
+  const sistema =
+    'You are a professional translator. Translate each item in the JSON array from ' +
+    'Spanish to English, keeping tone and meaning. Respond with ONLY a JSON array of ' +
+    'strings, same length and order as the input, no markdown, no extra text.';
+  const usuario = JSON.stringify(textos);
+  try {
+    const texto = await pedir({ sistema, usuario, maxTokens: 2000, temperatura: 0.2 });
+    const limpio = texto.replace(/^```json\s*/i, '').replace(/```$/, '').trim();
+    const arr = JSON.parse(limpio);
+    if (!Array.isArray(arr)) return textos.map(() => null);
+    return textos.map((_, i) => (typeof arr[i] === 'string' ? arr[i] : null));
+  } catch {
+    return textos.map(() => null);
+  }
+}

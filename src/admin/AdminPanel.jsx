@@ -1,5 +1,17 @@
 import { useEffect, useState, useCallback } from 'react'
-import { FiLogOut } from 'react-icons/fi'
+import {
+  FiActivity,
+  FiBriefcase,
+  FiEdit3,
+  FiFileText,
+  FiImage,
+  FiInbox,
+  FiLogOut,
+  FiMail,
+  FiSettings,
+  FiTruck,
+  FiUsers,
+} from 'react-icons/fi'
 import { obtenerResumen, limpiarToken } from '../lib/adminApi.js'
 import AdminBandeja, { BANDEJAS } from './AdminBandeja.jsx'
 import AdminContenido, { TIPOS } from './AdminContenido.jsx'
@@ -9,9 +21,36 @@ import AdminAnalitica from './AdminAnalitica.jsx'
 const SOLICITUDES = Object.entries(BANDEJAS).map(([id, b]) => ({ id, etiqueta: b.etiqueta }))
 const CONTENIDO = Object.entries(TIPOS).map(([id, t]) => ({ id, etiqueta: t.etiqueta }))
 
+const ICONOS = {
+  analitica: FiActivity,
+  presupuestos: FiFileText,
+  contactos: FiMail,
+  alquiler: FiTruck,
+  postulaciones: FiUsers,
+  maquinaria: FiTruck,
+  obras: FiImage,
+  busquedas: FiBriefcase,
+  config: FiSettings,
+}
+
+function NavItem({ activo, icono: Icono = FiInbox, children, badge, ...props }) {
+  return (
+    <button
+      className={`admin-panel__item ${activo ? 'admin-panel__item--on' : ''}`}
+      {...props}
+    >
+      <span className="admin-panel__item-main">
+        <span className="admin-panel__icono"><Icono /></span>
+        <span>{children}</span>
+      </span>
+      {badge > 0 && <span className="admin-panel__badge">{badge}</span>}
+    </button>
+  )
+}
+
 export default function AdminPanel({ onSalir }) {
   // vista: { grupo: 'solicitudes'|'contenido'|'config', id }
-  const [vista, setVista] = useState({ grupo: 'solicitudes', id: 'presupuestos' })
+  const [vista, setVista] = useState({ grupo: 'analitica', id: 'analitica' })
   const [resumen, setResumen] = useState({})
 
   const cargarResumen = useCallback(async () => {
@@ -33,43 +72,50 @@ export default function AdminPanel({ onSalir }) {
   return (
     <div className="admin-panel">
       <aside className="admin-panel__menu">
-        <h1 className="admin-panel__marca">ETÁN</h1>
-        <nav>
-          <button
-            className={`admin-panel__item ${vista.id === 'analitica' ? 'admin-panel__item--on' : ''}`}
+        <div className="admin-panel__marca">
+          <strong>ETÁN</strong>
+          <span>Panel interno</span>
+        </div>
+        <nav className="admin-panel__nav" aria-label="Administración">
+          <NavItem
+            activo={vista.id === 'analitica'}
+            icono={ICONOS.analitica}
             onClick={() => setVista({ grupo: 'analitica', id: 'analitica' })}
           >
             Visitas y métricas
-          </button>
+          </NavItem>
 
           <p className="admin-panel__grupo">Solicitudes</p>
           {SOLICITUDES.map((b) => (
-            <button
+            <NavItem
               key={b.id}
-              className={`admin-panel__item ${vista.id === b.id ? 'admin-panel__item--on' : ''}`}
+              activo={vista.id === b.id}
+              icono={ICONOS[b.id]}
+              badge={resumen[b.id]?.nuevos}
               onClick={() => setVista({ grupo: 'solicitudes', id: b.id })}
             >
               {b.etiqueta}
-              {resumen[b.id]?.nuevos > 0 && <span className="admin-panel__badge">{resumen[b.id].nuevos}</span>}
-            </button>
+            </NavItem>
           ))}
 
           <p className="admin-panel__grupo">Contenido del sitio</p>
           {CONTENIDO.map((c) => (
-            <button
+            <NavItem
               key={c.id}
-              className={`admin-panel__item ${vista.id === c.id ? 'admin-panel__item--on' : ''}`}
+              activo={vista.id === c.id}
+              icono={ICONOS[c.id] || FiEdit3}
               onClick={() => setVista({ grupo: 'contenido', id: c.id })}
             >
               {c.etiqueta}
-            </button>
+            </NavItem>
           ))}
-          <button
-            className={`admin-panel__item ${vista.id === 'config' ? 'admin-panel__item--on' : ''}`}
+          <NavItem
+            activo={vista.id === 'config'}
+            icono={ICONOS.config}
             onClick={() => setVista({ grupo: 'config', id: 'config' })}
           >
             Contacto y redes
-          </button>
+          </NavItem>
         </nav>
         <button className="admin-panel__salir" onClick={salir}>
           <FiLogOut /> Cerrar sesión

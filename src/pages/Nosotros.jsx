@@ -23,7 +23,7 @@ export default function Nosotros() {
 
       <section className="seccion contenedor nosotros__intro">
         <Aparecer className="nosotros__foto">
-          <img src="/img/nosotros.jpg" alt="Equipo de Etán en obra" loading="lazy" />
+          <img src="/img/nosotros.webp" alt="Equipo de Etán en obra" loading="lazy" />
         </Aparecer>
         <Aparecer className="nosotros__texto" delay={0.1}>
           <p className="eyebrow">Nuestra historia</p>

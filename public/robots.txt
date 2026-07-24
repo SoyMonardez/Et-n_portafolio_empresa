@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: /sitemap.xml
+# Sitemap: pendiente de agregar con URL absoluta cuando se compre el dominio
+# (el protocolo robots.txt exige que la directiva Sitemap use una URL absoluta).

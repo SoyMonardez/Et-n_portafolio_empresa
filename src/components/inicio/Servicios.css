@@ -1,12 +1,12 @@
 .serv {
-  padding: clamp(64px, 9vw, 110px) 0;
+  padding: clamp(72px, 9vw, 116px) 0;
 }
 
 .serv__grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 28px;
-  margin-top: 36px;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: 18px;
+  margin-top: 34px;
   align-items: start;
 }
 
@@ -14,21 +14,23 @@
 .serv__lista {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 .serv__item {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
   text-align: left;
-  padding: 16px 18px;
+  min-height: 82px;
+  padding: 14px;
   border-radius: var(--radio);
-  border: 1px solid transparent;
+  border: 1px solid var(--borde);
+  background: color-mix(in srgb, var(--surface) 52%, transparent);
   transition: background var(--transicion), border-color var(--transicion),
     transform var(--transicion);
 }
 .serv__item:hover {
-  background: var(--surface-2);
+  background: var(--surface);
 }
 .serv__item--on {
   background: var(--surface);
@@ -39,12 +41,12 @@
   flex: none;
   display: grid;
   place-items: center;
-  width: 52px;
-  height: 52px;
+  width: 48px;
+  height: 48px;
   border-radius: var(--radio-chico);
   background: var(--brand-suave);
   color: var(--brand);
-  font-size: 1.5rem;
+  font-size: 1.32rem;
   transition: background var(--transicion), color var(--transicion);
 }
 .serv__item--on .serv__item-icono {
@@ -62,12 +64,12 @@
   gap: 10px;
   font-family: var(--font-titulo);
   font-weight: 700;
-  font-size: 1.08rem;
+  font-size: 1rem;
   color: var(--text);
 }
 .serv__item-resumen {
   color: var(--text-suave);
-  font-size: 0.92rem;
+  font-size: 0.88rem;
 }
 .serv__progreso {
   display: block;
@@ -96,8 +98,8 @@
   .serv__progreso-relleno { animation: none; transform: scaleX(1); }
 }
 .serv__nuevo {
-  background: var(--accent);
-  color: #1a1a1a;
+  background: var(--text);
+  color: var(--bg);
   font-family: var(--font-dato);
   font-size: 0.62rem;
   font-weight: 600;
@@ -114,10 +116,11 @@
 }
 .serv__imagen {
   position: relative;
-  aspect-ratio: 16 / 11;
+  aspect-ratio: 1 / 1;
   border-radius: var(--radio);
   overflow: hidden;
-  box-shadow: var(--sombra-fuerte);
+  border: 1px solid var(--borde);
+  box-shadow: var(--sombra);
 }
 .serv__imagen img {
   width: 100%;
@@ -125,20 +128,224 @@
   object-fit: cover;
 }
 .serv__detalle-titulo {
-  font-size: 1.5rem;
-  margin: 22px 0 8px;
+  font-size: clamp(1.35rem, 2.2vw, 1.8rem);
+  margin: 18px 0 8px;
 }
 .serv__detalle-texto {
   color: var(--text-suave);
-  font-size: 1.02rem;
+  font-size: 0.98rem;
 }
 
 @media (max-width: 860px) {
   .serv__grid {
     grid-template-columns: 1fr;
+    gap: 22px;
   }
   .serv__panel {
     position: static;
     order: -1;
+  }
+
+  .serv__imagen {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+@media (max-width: 620px) {
+  .serv {
+    padding-block: 56px;
+  }
+
+  .serv__grid {
+    margin-top: 24px;
+  }
+
+  .serv__lista {
+    gap: 8px;
+  }
+
+  .serv__item {
+    min-height: auto;
+    padding: 12px;
+    gap: 12px;
+    border-radius: var(--radio-chico);
+    background: color-mix(in srgb, var(--surface) 44%, transparent);
+  }
+
+  .serv__item--on {
+    background: var(--surface);
+  }
+
+  .serv__item-icono {
+    width: 42px;
+    height: 42px;
+    font-size: 1.12rem;
+  }
+
+  .serv__item-titulo {
+    font-size: 0.98rem;
+  }
+
+  .serv__item-resumen {
+    font-size: 0.82rem;
+  }
+
+  .serv__detalle-titulo {
+    margin-top: 14px;
+  }
+}
+
+/* Ajuste mobile: imagen + servicios visibles en una sola pantalla. */
+@media (max-width: 620px) {
+  .serv {
+    padding-block: 22px 34px;
+  }
+
+  .serv .eyebrow,
+  .serv > .contenedor > .titulo-seccion {
+    display: none;
+  }
+
+  .serv__grid {
+    gap: 12px;
+    margin-top: 0;
+  }
+
+  .serv__imagen {
+    aspect-ratio: 16 / 7.2;
+    border-radius: 6px;
+  }
+
+  .serv__detalle-titulo {
+    margin: 10px 0 4px;
+    font-size: 1.34rem;
+    line-height: 1;
+  }
+
+  .serv__detalle-texto {
+    display: -webkit-box;
+    margin: 0;
+    font-size: 0.88rem;
+    line-height: 1.35;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .serv__lista {
+    gap: 6px;
+  }
+
+  .serv__item {
+    min-height: 58px;
+    padding: 9px 10px;
+    gap: 10px;
+    border-radius: 6px;
+  }
+
+  .serv__item-icono {
+    width: 34px;
+    height: 34px;
+    border-radius: 6px;
+    font-size: 0.98rem;
+  }
+
+  .serv__item-texto {
+    gap: 1px;
+    min-width: 0;
+  }
+
+  .serv__item-titulo {
+    font-size: 0.9rem;
+    line-height: 1.05;
+  }
+
+  .serv__item-resumen {
+    display: -webkit-box;
+    font-size: 0.76rem;
+    line-height: 1.2;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .serv__progreso {
+    height: 2px;
+    margin-top: 5px;
+  }
+}
+
+/* Contraste fijo para iconos: evita blanco/blanco o negro/negro en hover/activo. */
+html .serv__item-icono {
+  background: var(--icon-bg);
+  color: var(--icon-fg);
+  border: 1px solid color-mix(in srgb, var(--icon-fg) 10%, transparent);
+}
+html .serv__item--on .serv__item-icono,
+html .serv__item:hover .serv__item-icono {
+  background: var(--icon-active-bg);
+  color: var(--icon-active-fg);
+  border-color: color-mix(in srgb, var(--icon-active-fg) 14%, transparent);
+}
+
+:root html .serv__item--on .serv__item-icono,
+:root html .serv__item:hover .serv__item-icono {
+  background: #16161a;
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.14);
+}
+[data-theme='oscuro'] html .serv__item--on .serv__item-icono,
+[data-theme='oscuro'] html .serv__item:hover .serv__item-icono {
+  background: #f2f1ed;
+  color: #16161a;
+  border-color: rgba(22, 22, 26, 0.18);
+}
+
+html .serv__item--on .serv__item-icono,
+html .serv__item:hover .serv__item-icono {
+  background: #16161a;
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.14);
+}
+html[data-theme='oscuro'] .serv__item--on .serv__item-icono,
+html[data-theme='oscuro'] .serv__item:hover .serv__item-icono {
+  background: #f2f1ed;
+  color: #16161a;
+  border-color: rgba(22, 22, 26, 0.18);
+}
+
+/* Desktop: equilibrar el panel visual con la columna de servicios. */
+@media (min-width: 861px) {
+  .serv__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(420px, 0.92fr);
+    gap: 28px;
+    align-items: start;
+  }
+
+  .serv__lista {
+    gap: 12px;
+  }
+
+  .serv__item {
+    min-height: 86px;
+  }
+
+  .serv__panel {
+    top: 104px;
+  }
+
+  .serv__imagen {
+    aspect-ratio: 4 / 3;
+    max-height: 640px;
+  }
+
+  .serv__detalle-titulo {
+    margin: 16px 0 8px;
+    font-size: clamp(1.3rem, 1.8vw, 1.7rem);
+  }
+
+  .serv__detalle-texto {
+    max-width: 52ch;
+    line-height: 1.55;
   }
 }

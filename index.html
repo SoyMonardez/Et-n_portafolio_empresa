@@ -4,22 +4,64 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#f4f3f0" />
+    <meta name="theme-color" content="#f6f7f5" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0e0e10" media="(prefers-color-scheme: dark)" />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
 
     <!-- Tipografías: Archivo (títulos), Fraunces (serif itálica de acento),
          Hanken Grotesk (texto), Spline Sans Mono (datos) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Fuentes sin bloquear el render (se aplican al terminar de cargar) y con
+         display=optional para que no haya salto de layout por cambio de fuente. -->
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,400;1,9..144,500;1,9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&family=Spline+Sans+Mono:wght@500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,400;1,9..144,500;1,9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&family=Spline+Sans+Mono:wght@500;600&display=optional"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,400;1,9..144,500;1,9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&family=Spline+Sans+Mono:wght@500;600&display=optional"
+      />
+    </noscript>
+
+    <!-- Preload de la imagen del hero (es el LCP): que empiece a bajar ya,
+         sin esperar a que monte React. -->
+    <link rel="preload" as="image" href="/img/edificio-obra.webp" fetchpriority="high" />
+    <link rel="preload" as="image" href="/img/cielo-hero.webp" fetchpriority="high" />
 
     <title>Etán — Construcción, demolición y alquiler de maquinaria | San Juan</title>
     <meta
       name="description"
       content="Etán: empresa constructora de San Juan con más de 20 años de trayectoria en demolición, piedra bola, veredas y obra civil. Alquiler de maquinaria y presupuestos sin cargo."
     />
+
+    <!-- Vista previa al compartir en redes (WhatsApp, Facebook, Twitter/X).
+         Estos valores estáticos son el respaldo para los scrapers que NO
+         ejecutan JavaScript; useSeo los actualiza por página en el navegador. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Etán Construcciones" />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:title" content="Etán — Construcción, demolición y alquiler de maquinaria | San Juan" />
+    <meta
+      property="og:description"
+      content="Etán: empresa constructora de San Juan con más de 20 años de trayectoria en demolición, piedra bola, veredas y obra civil. Alquiler de maquinaria y presupuestos sin cargo."
+    />
+    <meta property="og:image" content="/img/og.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Etán — empresa constructora de San Juan" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="/img/og.jpg" />
+
+    <!-- IMPORTANTE: cuando se compre el dominio, agregar acá <link rel="canonical">
+         y cambiar las URL relativas de og:image/og:url y de public/sitemap.xml
+         a absolutas (https://www.dominio.com.ar/...), como pide el protocolo. -->
   </head>
   <body>
     <div id="root"></div>

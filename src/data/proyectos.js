@@ -7,7 +7,7 @@ export const PROYECTOS = [
     categoria: 'Demolición',
     lugar: 'Ciudad de San Juan',
     anio: '2023',
-    img: '/img/proyecto-1.jpg',
+    img: '/img/proyecto-1.webp',
   },
   {
     id: 'veredas-chimbas',
@@ -15,7 +15,7 @@ export const PROYECTOS = [
     categoria: 'Veredas',
     lugar: 'Chimbas',
     anio: '2022',
-    img: '/img/proyecto-2.jpg',
+    img: '/img/proyecto-2.webp',
   },
   {
     id: 'defensa-piedra',
@@ -23,7 +23,7 @@ export const PROYECTOS = [
     categoria: 'Piedra bola',
     lugar: 'Albardón',
     anio: '2021',
-    img: '/img/proyecto-3.jpg',
+    img: '/img/proyecto-3.webp',
   },
   {
     id: 'obra-civil-sanluis',
@@ -31,7 +31,7 @@ export const PROYECTOS = [
     categoria: 'Obra civil',
     lugar: 'San Luis',
     anio: '2023',
-    img: '/img/serv-obra.jpg',
+    img: '/img/serv-obra.webp',
   },
   {
     id: 'demolicion-galpon',
@@ -39,7 +39,7 @@ export const PROYECTOS = [
     categoria: 'Demolición',
     lugar: 'Ciudad de San Juan',
     anio: '2022',
-    img: '/img/serv-demolicion.jpg',
+    img: '/img/serv-demolicion.webp',
   },
   {
     id: 'veredas-capital',
@@ -47,6 +47,6 @@ export const PROYECTOS = [
     categoria: 'Veredas',
     lugar: 'Capital',
     anio: '2024',
-    img: '/img/serv-veredas.jpg',
+    img: '/img/serv-veredas.webp',
   },
 ]

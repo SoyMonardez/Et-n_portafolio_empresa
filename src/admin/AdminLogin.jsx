@@ -10,9 +10,14 @@ export default function AdminLogin({ onIngreso }) {
   async function enviar(e) {
     e.preventDefault()
     setError('')
+    const usuarioLimpio = usuario.trim()
+    if (!usuarioLimpio || !password) {
+      setError('Completá usuario y contraseña.')
+      return
+    }
     setCargando(true)
     try {
-      const { token } = await login(usuario, password)
+      const { token } = await login(usuarioLimpio, password)
       setToken(token)
       onIngreso()
     } catch (err) {
@@ -36,6 +41,7 @@ export default function AdminLogin({ onIngreso }) {
             required
             value={usuario}
             onChange={(e) => setUsuario(e.target.value)}
+            autoComplete="username"
             autoFocus
           />
         </div>
@@ -47,6 +53,7 @@ export default function AdminLogin({ onIngreso }) {
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            autoComplete="current-password"
           />
         </div>
 

@@ -1,0 +1,29 @@
+# Etán Construcciones
+
+> Empresa constructora de San Juan, Argentina, con más de 20 años de trayectoria (desde 2003) y un equipo de cerca de 50 personas. Servicios de demolición, piedra bola, veredas, obra civil, alquiler de maquinaria y mantenimiento de campamentos mineros. Trabaja para municipios y empresas de la provincia con equipo y maquinaria propia.
+
+## Servicios
+
+- Demolición
+- Piedra bola
+- Veredas
+- Obra civil
+- Alquiler de maquinaria
+- Mantenimiento de campamentos mineros
+
+## Páginas
+
+- [Inicio](/): presentación de la empresa y servicios destacados
+- [Servicios](/servicios): detalle de cada servicio
+- [Obras](/obras): proyectos realizados
+- [Maquinaria](/maquinaria): catálogo de máquinas en alquiler
+- [Presupuesto](/presupuesto): solicitud de presupuesto sin cargo
+- [Trabajá con nosotros](/empleo): búsquedas laborales y postulaciones
+- [Nosotros](/nosotros): historia y equipo
+- [Contacto](/contacto): datos de contacto y ubicación
+
+## Datos
+
+- Ubicación: San Juan, Argentina
+- Año de fundación: 2003
+- Zona de trabajo: provincia de San Juan

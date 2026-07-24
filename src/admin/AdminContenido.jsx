@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from 'react'
-import { FiPlus, FiEdit2, FiTrash2, FiX, FiZap } from 'react-icons/fi'
+import { FiAlertTriangle, FiPlus, FiEdit2, FiTrash2, FiX, FiZap } from 'react-icons/fi'
 import { listarContenido, guardarContenido, borrarContenido, sugerirDescripcion, limpiarToken } from '../lib/adminApi.js'
 
 // Configuración de cada tipo gestionable: qué campos tiene, si lleva imagen,
@@ -50,6 +50,8 @@ export default function AdminContenido({ tipo, onSesionVencida }) {
   const [cargando, setCargando] = useState(true)
   const [error, setError] = useState('')
   const [editando, setEditando] = useState(null) // null = nada, {} = nuevo, {...} = editar
+  const [aBorrar, setABorrar] = useState(null)
+  const [borrando, setBorrando] = useState(false)
 
   const cargar = useCallback(async () => {
     setCargando(true)
@@ -70,10 +72,19 @@ export default function AdminContenido({ tipo, onSesionVencida }) {
   useEffect(() => { cargar() }, [cargar])
   useEffect(() => { setEditando(null) }, [tipo])
 
-  async function eliminar(id) {
-    if (!window.confirm('¿Seguro que querés borrarlo? No se puede deshacer.')) return
-    await borrarContenido(tipo, id)
-    cargar()
+  async function confirmarBorrado() {
+    if (!aBorrar) return
+    setBorrando(true)
+    setError('')
+    try {
+      await borrarContenido(tipo, aBorrar.id)
+      setABorrar(null)
+      cargar()
+    } catch (err) {
+      setError(err.message || 'No pudimos borrar el contenido.')
+    } finally {
+      setBorrando(false)
+    }
   }
 
   return (
@@ -121,10 +132,51 @@ export default function AdminContenido({ tipo, onSesionVencida }) {
               </div>
               <div className="admin-item__acciones">
                 <button onClick={() => setEditando(it)} aria-label="Editar"><FiEdit2 /></button>
-                <button onClick={() => eliminar(it.id)} aria-label="Borrar"><FiTrash2 /></button>
+                <button onClick={() => setABorrar(it)} aria-label="Borrar"><FiTrash2 /></button>
               </div>
             </article>
           ))}
+        </div>
+      )}
+
+      {aBorrar && (
+        <div className="admin-modal" role="presentation" onMouseDown={() => !borrando && setABorrar(null)}>
+          <section
+            className="admin-modal__caja"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="confirmar-borrar-titulo"
+            onMouseDown={(e) => e.stopPropagation()}
+          >
+            <div className="admin-modal__icono" aria-hidden="true">
+              <FiAlertTriangle />
+            </div>
+            <div className="admin-modal__texto">
+              <p className="admin-modal__eyebrow">Acción permanente</p>
+              <h3 id="confirmar-borrar-titulo">Borrar {cfg.singular}</h3>
+              <p>
+                Vas a eliminar <strong>{cfg.titulo(aBorrar)}</strong>. Esta acción no se puede deshacer.
+              </p>
+            </div>
+            <div className="admin-modal__acciones">
+              <button
+                type="button"
+                className="boton boton--borde admin-modal__secundario"
+                onClick={() => setABorrar(null)}
+                disabled={borrando}
+              >
+                Cancelar
+              </button>
+              <button
+                type="button"
+                className="boton admin-modal__peligro"
+                onClick={confirmarBorrado}
+                disabled={borrando}
+              >
+                <FiTrash2 /> {borrando ? 'Borrando…' : 'Borrar'}
+              </button>
+            </div>
+          </section>
         </div>
       )}
     </>
