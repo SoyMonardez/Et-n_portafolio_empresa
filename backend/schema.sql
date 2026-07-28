@@ -105,6 +105,17 @@ CREATE TABLE IF NOT EXISTS visitas (
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
+-- Caché de traducciones (IA): evita traducir el mismo texto dos veces.
+CREATE TABLE IF NOT EXISTS traducciones (
+  id SERIAL PRIMARY KEY,
+  idioma TEXT NOT NULL,
+  texto_hash TEXT NOT NULL,
+  texto_original TEXT NOT NULL,
+  texto_traducido TEXT NOT NULL,
+  creado_en TIMESTAMPTZ NOT NULL DEFAULT now(),
+  UNIQUE (idioma, texto_hash)
+);
+
 INSERT INTO site_config (clave, valor) VALUES
   ('telefono', ''),
   ('email', ''),

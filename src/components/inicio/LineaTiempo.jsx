@@ -12,17 +12,15 @@ export default function LineaTiempo() {
 
         <ol className="linea__lista">
           {HITOS.map((h, i) => (
-            <Aparecer key={h.anio} delay={i * 0.05}>
-              <li className="hito">
-                <div className="hito__marca">
-                  <span className="hito__punto" />
-                </div>
-                <div className="hito__cuerpo">
-                  <span className="hito__anio">{h.anio}</span>
-                  <h3 className="hito__titulo">{h.titulo}</h3>
-                  <p className="hito__texto">{h.texto}</p>
-                </div>
-              </li>
+            <Aparecer key={h.anio} as="li" className="hito" delay={i * 0.05}>
+              <div className="hito__marca">
+                <span className="hito__punto" />
+              </div>
+              <div className="hito__cuerpo">
+                <span className="hito__anio">{h.anio}</span>
+                <h3 className="hito__titulo">{h.titulo}</h3>
+                <p className="hito__texto">{h.texto}</p>
+              </div>
             </Aparecer>
           ))}
         </ol>

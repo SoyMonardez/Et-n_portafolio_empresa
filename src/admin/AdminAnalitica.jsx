@@ -3,7 +3,7 @@ import {
   ResponsiveContainer, AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell,
   XAxis, YAxis, Tooltip, CartesianGrid,
 } from 'recharts'
-import { FiZap } from 'react-icons/fi'
+import { FiBriefcase, FiMousePointer, FiSend, FiTruck, FiUserCheck, FiUsers, FiZap } from 'react-icons/fi'
 import { obtenerAnalitica, analizarMetricas, limpiarToken } from '../lib/adminApi.js'
 
 const PERIODOS = [
@@ -12,8 +12,16 @@ const PERIODOS = [
   { dias: 90, label: '90 días' },
 ]
 
-// Colores derivados de los tokens del sitio (tinta + grises).
-const COLORES = ['#16161a', '#6e6e70', '#9a9a9c', '#c4c3bd', '#e0dfda']
+const COLORES = ['#f2c94c', '#37b6ff', '#36d399', '#ff7a45', '#b78cff', '#f76f8e']
+
+const TARJETAS = [
+  { clave: 'visitas', titulo: 'Visitas', tono: 'amarillo', icono: FiMousePointer },
+  { clave: 'unicos', titulo: 'Visitantes únicos', tono: 'azul', icono: FiUsers },
+  { clave: 'presupuestos', titulo: 'Presupuestos', tono: 'verde', icono: FiSend },
+  { clave: 'contactos', titulo: 'Contactos', tono: 'naranja', icono: FiUserCheck },
+  { clave: 'alquiler', titulo: 'Alquileres', tono: 'violeta', icono: FiTruck },
+  { clave: 'postulaciones', titulo: 'Postulaciones', tono: 'rosa', icono: FiBriefcase },
+]
 
 function diaCorto(iso) {
   const d = new Date(iso + 'T00:00:00')
@@ -89,14 +97,20 @@ export default function AdminAnalitica({ onSesionVencida }) {
         </p>
       ) : (
         <div className="ana">
-          {/* Tarjetas resumen */}
           <div className="ana-cards">
-            <Card titulo="Visitas" valor={data.totales.visitas} />
-            <Card titulo="Visitantes únicos" valor={data.totales.unicos} />
-            <Card titulo="Presupuestos" valor={data.conversiones.presupuestos} />
-            <Card titulo="Contactos" valor={data.conversiones.contactos} />
-            <Card titulo="Alquileres" valor={data.conversiones.alquiler} />
-            <Card titulo="Postulaciones" valor={data.conversiones.postulaciones} />
+            {TARJETAS.map((tarjeta) => (
+              <Card
+                key={tarjeta.clave}
+                titulo={tarjeta.titulo}
+                tono={tarjeta.tono}
+                icono={tarjeta.icono}
+                valor={
+                  tarjeta.clave in data.totales
+                    ? data.totales[tarjeta.clave]
+                    : data.conversiones[tarjeta.clave]
+                }
+              />
+            ))}
           </div>
 
           {/* Sugerencias de marketing con IA */}
@@ -121,16 +135,20 @@ export default function AdminAnalitica({ onSesionVencida }) {
               <AreaChart data={data.porDia.map((d) => ({ ...d, dia: diaCorto(d.dia) }))}>
                 <defs>
                   <linearGradient id="gVis" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#16161a" stopOpacity={0.25} />
-                    <stop offset="100%" stopColor="#16161a" stopOpacity={0} />
+                    <stop offset="0%" stopColor="#f2c94c" stopOpacity={0.42} />
+                    <stop offset="100%" stopColor="#f2c94c" stopOpacity={0} />
+                  </linearGradient>
+                  <linearGradient id="gUni" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#37b6ff" stopOpacity={0.28} />
+                    <stop offset="100%" stopColor="#37b6ff" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="var(--borde)" vertical={false} />
-                <XAxis dataKey="dia" tick={{ fontSize: 12 }} stroke="var(--text-suave)" />
-                <YAxis allowDecimals={false} tick={{ fontSize: 12 }} stroke="var(--text-suave)" width={28} />
-                <Tooltip />
-                <Area type="monotone" dataKey="visitas" name="Visitas" stroke="#16161a" strokeWidth={2} fill="url(#gVis)" />
-                <Area type="monotone" dataKey="unicos" name="Únicos" stroke="#9a9a9c" strokeWidth={1.5} fill="none" />
+                <CartesianGrid strokeDasharray="4 6" stroke="rgba(255,255,255,.1)" vertical={false} />
+                <XAxis dataKey="dia" tick={{ fontSize: 12, fill: '#b9c0cc' }} axisLine={{ stroke: 'rgba(255,255,255,.18)' }} tickLine={false} />
+                <YAxis allowDecimals={false} tick={{ fontSize: 12, fill: '#b9c0cc' }} axisLine={{ stroke: 'rgba(255,255,255,.18)' }} tickLine={false} width={34} />
+                <Tooltip content={<TooltipAnalitica />} />
+                <Area type="monotone" dataKey="visitas" name="Visitas" stroke="#f2c94c" strokeWidth={3} fill="url(#gVis)" dot={{ r: 3, fill: '#f2c94c' }} activeDot={{ r: 5 }} />
+                <Area type="monotone" dataKey="unicos" name="Únicos" stroke="#37b6ff" strokeWidth={2} fill="url(#gUni)" dot={false} />
               </AreaChart>
             </ResponsiveContainer>
           </Panel>
@@ -139,10 +157,10 @@ export default function AdminAnalitica({ onSesionVencida }) {
             <Panel titulo="De dónde llegan (fuentes)">
               <ResponsiveContainer width="100%" height={240}>
                 <PieChart>
-                  <Pie data={data.fuentes} dataKey="total" nameKey="fuente" outerRadius={90} label>
+                  <Pie data={data.fuentes} dataKey="total" nameKey="fuente" innerRadius={46} outerRadius={92} paddingAngle={3}>
                     {data.fuentes.map((_, i) => <Cell key={i} fill={COLORES[i % COLORES.length]} />)}
                   </Pie>
-                  <Tooltip />
+                  <Tooltip content={<TooltipAnalitica />} />
                 </PieChart>
               </ResponsiveContainer>
               <Leyenda items={data.fuentes} campo="fuente" />
@@ -151,10 +169,13 @@ export default function AdminAnalitica({ onSesionVencida }) {
             <Panel titulo="Páginas más vistas">
               <ResponsiveContainer width="100%" height={240}>
                 <BarChart data={data.topPaginas} layout="vertical" margin={{ left: 20 }}>
+                  <CartesianGrid strokeDasharray="4 6" stroke="rgba(255,255,255,.08)" horizontal={false} />
                   <XAxis type="number" allowDecimals={false} hide />
-                  <YAxis type="category" dataKey="path" width={120} tick={{ fontSize: 12 }} stroke="var(--text-suave)" />
-                  <Tooltip />
-                  <Bar dataKey="total" name="Visitas" fill="#16161a" radius={[0, 4, 4, 0]} />
+                  <YAxis type="category" dataKey="path" width={120} tick={{ fontSize: 12, fill: '#b9c0cc' }} axisLine={false} tickLine={false} />
+                  <Tooltip content={<TooltipAnalitica />} />
+                  <Bar dataKey="total" name="Visitas" radius={[0, 6, 6, 0]}>
+                    {data.topPaginas.map((_, i) => <Cell key={i} fill={COLORES[i % COLORES.length]} />)}
+                  </Bar>
                 </BarChart>
               </ResponsiveContainer>
             </Panel>
@@ -165,7 +186,7 @@ export default function AdminAnalitica({ onSesionVencida }) {
                   <Pie data={data.dispositivos} dataKey="total" nameKey="device" innerRadius={50} outerRadius={90}>
                     {data.dispositivos.map((_, i) => <Cell key={i} fill={COLORES[i % COLORES.length]} />)}
                   </Pie>
-                  <Tooltip />
+                  <Tooltip content={<TooltipAnalitica />} />
                 </PieChart>
               </ResponsiveContainer>
               <Leyenda items={data.dispositivos} campo="device" />
@@ -179,10 +200,13 @@ export default function AdminAnalitica({ onSesionVencida }) {
               ) : (
                 <ResponsiveContainer width="100%" height={240}>
                   <BarChart data={data.paises}>
-                    <XAxis dataKey="country" tick={{ fontSize: 12 }} stroke="var(--text-suave)" />
-                    <YAxis allowDecimals={false} tick={{ fontSize: 12 }} stroke="var(--text-suave)" width={28} />
-                    <Tooltip />
-                    <Bar dataKey="total" name="Visitas" fill="#16161a" radius={[4, 4, 0, 0]} />
+                    <CartesianGrid strokeDasharray="4 6" stroke="rgba(255,255,255,.08)" vertical={false} />
+                    <XAxis dataKey="country" tick={{ fontSize: 12, fill: '#b9c0cc' }} axisLine={false} tickLine={false} />
+                    <YAxis allowDecimals={false} tick={{ fontSize: 12, fill: '#b9c0cc' }} axisLine={false} tickLine={false} width={34} />
+                    <Tooltip content={<TooltipAnalitica />} />
+                    <Bar dataKey="total" name="Visitas" radius={[6, 6, 0, 0]}>
+                      {data.paises.map((_, i) => <Cell key={i} fill={COLORES[i % COLORES.length]} />)}
+                    </Bar>
                   </BarChart>
                 </ResponsiveContainer>
               )}
@@ -194,10 +218,11 @@ export default function AdminAnalitica({ onSesionVencida }) {
   )
 }
 
-function Card({ titulo, valor }) {
+function Card({ titulo, valor, tono, icono: Icono }) {
   return (
-    <div className="ana-card">
-      <span className="ana-card__valor">{valor}</span>
+    <div className={`ana-card ana-card--${tono}`}>
+      <span className="ana-card__icono"><Icono /></span>
+      <span className="ana-card__valor">{valor ?? 0}</span>
       <span className="ana-card__titulo">{titulo}</span>
     </div>
   )
@@ -222,5 +247,20 @@ function Leyenda({ items, campo }) {
         </li>
       ))}
     </ul>
+  )
+}
+
+function TooltipAnalitica({ active, payload, label }) {
+  if (!active || !payload?.length) return null
+  return (
+    <div className="ana-tooltip">
+      {label && <strong>{label}</strong>}
+      {payload.map((p, i) => (
+        <span key={`${p.name}-${i}`}>
+          <i style={{ background: p.color || COLORES[i % COLORES.length] }} />
+          {p.name}: <b>{p.value}</b>
+        </span>
+      ))}
+    </div>
   )
 }

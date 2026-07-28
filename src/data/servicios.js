@@ -17,7 +17,7 @@ export const SERVICIOS = [
     resumen: 'Demolición de estructuras con equipo propio y retiro de escombros.',
     detalle:
       'Demolemos estructuras de todo tipo de forma segura, con maquinaria propia. Incluye el retiro de escombros y la limpieza del predio para dejarlo listo para la próxima etapa.',
-    img: '/img/serv-demolicion.jpg',
+    img: '/img/serv-demolicion.webp',
   },
   {
     id: 'piedra-bola',
@@ -26,7 +26,7 @@ export const SERVICIOS = [
     resumen: 'Provisión y colocación para defensas y obras de contención.',
     detalle:
       'Proveemos y colocamos piedra bola para defensas, gaviones y obras de contención, protegiendo márgenes y terrenos de la erosión.',
-    img: '/img/serv-piedra.jpg',
+    img: '/img/serv-piedra.webp',
   },
   {
     id: 'veredas',
@@ -35,7 +35,7 @@ export const SERVICIOS = [
     resumen: 'Veredas, cordón cuneta y solados de hormigón.',
     detalle:
       'Construimos y reparamos veredas, cordón cuneta y solados de hormigón, con terminaciones prolijas y durables para espacios públicos y privados.',
-    img: '/img/serv-veredas.jpg',
+    img: '/img/serv-veredas.webp',
   },
   {
     id: 'obra-civil',
@@ -44,7 +44,7 @@ export const SERVICIOS = [
     resumen: 'Movimiento de suelos, excavaciones y obra civil.',
     detalle:
       'Realizamos movimiento de suelos, excavaciones y trabajos de obra civil para municipios, empresas y particulares, con planificación y maquinaria adecuada.',
-    img: '/img/serv-obra.jpg',
+    img: '/img/serv-obra.webp',
   },
   {
     id: 'campamentos-mineros',
@@ -53,7 +53,7 @@ export const SERVICIOS = [
     resumen: 'Infraestructura y mantenimiento para operaciones mineras.',
     detalle:
       'Nuevo servicio: mantenimiento e infraestructura para campamentos y operaciones mineras, con la experiencia de más de 20 años en obra.',
-    img: '/img/serv-mineria.jpg',
+    img: '/img/serv-mineria.webp',
     nuevo: true,
   },
 ]

@@ -26,7 +26,7 @@ export default function CookieBanner() {
         <p className="cookies__texto">
           Usamos cookies propias para que el sitio funcione bien y, si lo
           aceptás, para medir visitas de forma anónima y mejorar el contenido.{' '}
-          <Link to="/legal">Más información</Link>.
+          <Link to="/legal">Leer la política de cookies</Link>.
         </p>
         <div className="cookies__botones">
           <button className="boton boton--borde" onClick={() => elegir('rechazadas')}>

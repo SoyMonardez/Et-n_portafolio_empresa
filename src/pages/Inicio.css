@@ -1,4 +1,41 @@
-/* Ajuste de margen inferior del cierre en el inicio */
+﻿/* Ajuste de margen inferior del cierre en el inicio */
 .cierre {
   margin-bottom: 90px;
 }
+
+/* El hero queda fijo (sticky) mientras el resto de la pÃ¡gina sube por
+   encima y lo tapa, igual que el video de "nuestro trabajo" mÃ¡s abajo:
+   la misma cortina, aplicada tambiÃ©n a la entrada del sitio. */
+.inicio-revelar {
+  position: relative;
+}
+.inicio-revelar__sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  z-index: 0;
+}
+.inicio-revelar__cubre {
+  position: relative;
+  z-index: 1;
+  /* var(--bg) normal (no blanco fijo): el resto de las secciones tienen su
+     propio texto pensado para el tema activo (claro/oscuro). El blanco fijo
+     va solo en el degradÃ© del propio hero (Hero.css), que es la franja que
+     se ve mientras el hero todavÃ­a estÃ¡ tapando; una vez que esta secciÃ³n
+     sube del todo, manda su fondo real del tema. */
+  background: var(--bg);
+}
+
+@media (max-width: 980px) {
+  .inicio-revelar__sticky {
+    height: 100svh;
+  }
+}
+
+@media (max-width: 560px) {
+  .inicio-revelar__sticky {
+    height: 100svh;
+  }
+}
+

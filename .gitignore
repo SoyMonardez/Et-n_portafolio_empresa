@@ -7,13 +7,14 @@ ai-service/node_modules/
 dist/
 build/
 
-# Variables de entorno (secretos)
+# Variables de entorno
 .env
-.env.local
-.env.*.local
+.env.*
+!.env.example
+!.env.*.example
 backend/.env
 
-# Archivos subidos por usuarios (fotos, CVs)
+# Archivos subidos por usuarios
 uploads/
 backend/uploads/
 
@@ -24,5 +25,7 @@ npm-debug.log*
 Thumbs.db
 .vite/
 
-# Capturas de desarrollo
+# Herramientas locales y capturas
+.claude/
+.postgres-schema-check/
 /shot*.png

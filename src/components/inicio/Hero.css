@@ -1,125 +1,556 @@
-.heroE {
-  position: relative;
-}
-
-.heroE__panel {
+﻿.heroE {
   position: relative;
   min-height: 100svh;
-  display: flex;
-  align-items: flex-end;
   overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(246, 247, 245, 0.02), rgba(246, 247, 245, 0.04) 72%, var(--bg) 100%),
+    url('/img/cielo-hero.webp') center 35% / cover no-repeat;
+  color: var(--text);
 }
-.heroE__img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.heroE__overlay {
+
+.heroE::before {
+  content: '';
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(8, 8, 10, 0.55) 0%, transparent 30%),
-    linear-gradient(0deg, rgba(8, 8, 10, 0.82) 0%, rgba(8, 8, 10, 0.25) 45%, transparent 70%);
+    linear-gradient(90deg, rgba(246, 247, 245, 0.06), transparent 18%, transparent 82%, rgba(246, 247, 245, 0.06)),
+    linear-gradient(180deg, transparent 0%, transparent 76%, color-mix(in srgb, var(--bg) 34%, transparent) 100%);
+  pointer-events: none;
 }
 
-.heroE__inner {
+.heroE__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.heroE__marco {
   position: relative;
-  z-index: 2;
-  width: 100%;
-  padding-bottom: clamp(90px, 14vh, 150px);
-  color: #fff;
+  z-index: 1;
+  min-height: 100svh;
 }
 
-.heroE__eyebrow {
-  display: inline-block;
-  font-family: var(--font-dato);
-  font-size: clamp(0.7rem, 1.6vw, 0.86rem);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 20px;
+.heroE__escena {
+  position: relative;
+  min-height: 100svh;
+  padding: clamp(72px, 10vh, 104px) clamp(16px, 4vw, 64px) 0;
 }
-.heroE__titulo {
-  font-family: var(--font-titulo);
+
+.heroE__escena::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 24%;
+  z-index: 4;
+  /* Blanco fijo (no var(--bg)): la cortina que tapa el hero al scrollear
+     (.inicio-revelar__cubre) tambiÃ©n es blanca siempre, asÃ­ el degradÃ© de
+     salida queda unificado sin importar el tema activo. */
+  background: linear-gradient(180deg, transparent 0%, rgba(246, 247, 245, 0.52) 70%, #f6f7f5 100%);
+  pointer-events: none;
+}
+
+.heroE__marca {
+  position: absolute;
+  inset-inline: clamp(6px, 1.5vw, 28px);
+  top: 24%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.heroE__palabra {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0;
+}
+
+.heroE__letra {
+  display: block;
+  font-family: var(--font-marca);
+  font-style: normal;
+  font-size: clamp(7.4rem, 25vw, 21.5rem);
   font-weight: 900;
-  font-size: clamp(2.8rem, 8vw, 6.5rem);
-  line-height: 0.98;
-  letter-spacing: -0.02em;
-  max-width: 16ch;
-  color: #fff;
-}
-.heroE__titulo em {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 500;
-}
-.heroE__sub {
-  margin-top: 22px;
-  max-width: 56ch;
-  font-size: clamp(1.02rem, 2vw, 1.25rem);
-  color: rgba(255, 255, 255, 0.85);
-}
-.heroE__acciones {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 14px;
-  margin-top: 34px;
-}
-.heroE__btn-claro {
-  background: #fff;
-  color: #16161a;
-}
-.heroE__btn-claro:hover {
-  background: rgba(255, 255, 255, 0.85);
+  line-height: 0.8;
+  letter-spacing: -0.045em;
+  color: color-mix(in srgb, var(--text) 92%, transparent);
+  opacity: 0;
+  transform: translate3d(0, 120px, 0) scaleY(0.82);
+  animation: heroE-letra-entra 900ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: calc(110ms * var(--i) + 220ms);
+  text-shadow: 0 16px 38px color-mix(in srgb, var(--bg) 34%, transparent);
+  will-change: transform, opacity;
 }
 
-/* Chips de servicios, debajo de los botones */
-.heroE__chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 30px;
-}
-.heroE__chips span {
+.heroE__dato {
+  position: absolute;
+  top: 100%;
+  right: clamp(4px, 1vw, 16px);
+  margin-top: clamp(10px, 1.6vw, 20px);
+  text-align: right;
   font-family: var(--font-dato);
-  font-size: 0.72rem;
-  letter-spacing: 0.04em;
-  color: #fff;
-  padding: 7px 13px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(6px);
+  font-size: clamp(0.7rem, 1vw, 0.85rem);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--text) 78%, transparent);
+  opacity: 0;
+  animation: heroE-dato-entra 700ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 780ms;
+}
+
+.heroE__recorte {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  z-index: 3;
+  width: auto;
+  height: min(64svh, 660px);
+  max-width: 92vw;
+  object-fit: contain;
+  object-position: bottom center;
+  transform: translateX(-50%);
+  filter: drop-shadow(0 30px 48px color-mix(in srgb, #000 22%, transparent));
 }
 
 .heroE__scroll {
   position: absolute;
   left: 50%;
-  bottom: 22px;
+  bottom: clamp(28px, 5vh, 52px);
   transform: translateX(-50%);
-  z-index: 3;
+  z-index: 6;
   display: grid;
   place-items: center;
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  color: #fff;
-  font-size: 1.1rem;
-  animation: rebote 1.8s ease-in-out infinite;
+  border: 1px solid color-mix(in srgb, var(--text) 22%, transparent);
+  background: color-mix(in srgb, var(--bg) 58%, transparent);
+  color: var(--text);
+  backdrop-filter: blur(10px);
+  animation: heroE-scroll 1.8s ease-in-out 1.4s infinite;
 }
+
 .heroE__scroll:hover {
-  border-color: #fff;
-  background: rgba(255, 255, 255, 0.12);
+  border-color: color-mix(in srgb, var(--text) 45%, transparent);
 }
-@keyframes rebote {
-  0%, 100% { transform: translate(-50%, 0); }
-  50% { transform: translate(-50%, 8px); }
+
+[data-theme='oscuro'] .heroE {
+  background:
+    linear-gradient(180deg, rgba(14, 14, 16, 0.22), rgba(14, 14, 16, 0.34) 74%, var(--bg) 100%),
+    url('/img/cielo-hero.webp') center 35% / cover no-repeat;
+}
+
+[data-theme='oscuro'] .heroE::before {
+  background:
+    linear-gradient(90deg, rgba(14, 14, 16, 0.22), transparent 20%, transparent 80%, rgba(14, 14, 16, 0.22)),
+    linear-gradient(180deg, rgba(14, 14, 16, 0.04) 0%, transparent 58%, rgba(14, 14, 16, 0.56) 100%);
+}
+
+[data-theme='oscuro'] .heroE__letra {
+  color: color-mix(in srgb, var(--text) 92%, transparent);
+  text-shadow: 0 22px 48px rgba(0, 0, 0, 0.38);
+}
+
+@keyframes heroE-letra-entra {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 120px, 0) scaleY(0.82);
+  }
+  64% {
+    opacity: 1;
+    transform: translate3d(0, -10px, 0) scaleY(1.04);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scaleY(1);
+  }
+}
+
+@keyframes heroE-dato-entra {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroE-scroll {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(8px);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .heroE__scroll { animation: none; }
+  .heroE__letra,
+  .heroE__dato,
+  .heroE__scroll {
+    animation: none;
+    opacity: 1;
+  }
+
+  .heroE__letra {
+    transform: none;
+  }
+
+  .heroE__dato {
+    transform: none;
+  }
+
+  .heroE__scroll,
+  .heroE__recorte {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 980px) {
+  .heroE__marca {
+    top: 25%;
+    inset-inline: 8px;
+  }
+
+  .heroE__letra {
+    font-size: clamp(4.6rem, 26vw, 9.2rem);
+  }
+
+  .heroE__recorte {
+    height: min(80svh, 780px);
+    /* Generoso a propÃ³sito: si el ancho disponible fuera muy chico, object-fit
+       contain achicarÃ­a la imagen por ancho en vez de por alto (el "height"
+       de arriba dejarÃ­a de mandar). Con este margen, el alto siempre manda. */
+    max-width: 130vw;
+    bottom: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .heroE__escena {
+    padding-top: 86px;
+  }
+
+  .heroE__marca {
+    inset-inline: 6px;
+    /* "bottom" en vw (no "top" en %): el edificio se dimensiona por ancho
+       (width:100vw mÃ¡s abajo), asÃ­ que su alto real depende del ANCHO de la
+       pantalla, no del alto. Si el texto se ubicara con top en % de la
+       altura, en un celular mÃ¡s bajo y ancho (ej. 360x740) el edificio
+       taparÃ­a mucho mÃ¡s de la palabra. Usando vw para los dos, la relaciÃ³n
+       entre el texto y el edificio se mantiene estable en cualquier alto. */
+    top: auto;
+    bottom: 102vw;
+  }
+
+  .heroE__letra {
+    font-size: clamp(4.4rem, 33vw, 9rem);
+  }
+
+  .heroE__dato {
+    top: auto;
+    bottom: 100%;
+    right: 4px;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+  }
+
+  .heroE__recorte {
+    /* En celular, un viewport angosto+alto hace que fijar el tamaÃ±o por
+       "height" obligue a un ancho mayor al de la pantalla (por la proporciÃ³n
+       de la foto), tapando todo el ancho de las letras. Se controla por
+       "width" en su lugar, asÃ­ el edificio no se pasa del borde. */
+    width: 100vw;
+    height: auto;
+    max-width: none;
+    bottom: 0;
+  }
+}
+
+@media (max-width: 980px) {
+  .heroE,
+  .heroE__marco,
+  .heroE__escena {
+    min-height: 100svh;
+  }
+
+  .heroE__escena {
+    padding-top: 72px;
+  }
+
+  .heroE__marca {
+    top: 22%;
+    inset-inline: 10px;
+    bottom: auto;
+  }
+
+  .heroE__letra {
+    font-size: clamp(5.8rem, 24vw, 12rem);
+    letter-spacing: -0.06em;
+  }
+
+  .heroE__dato {
+    right: 10px;
+    font-size: 0.66rem;
+    max-width: 16ch;
+  }
+
+  .heroE__recorte {
+    width: auto;
+    height: min(82svh, 720px);
+    max-width: 118vw;
+    bottom: -8vh;
+  }
+
+  .heroE__scroll {
+    bottom: 22px;
+  }
+}
+
+@media (max-width: 560px) {
+  .heroE__escena {
+    padding-top: 68px;
+  }
+
+  .heroE__marca {
+    top: 24%;
+    inset-inline: 6px;
+    bottom: auto;
+  }
+
+  .heroE__letra {
+    font-size: clamp(4.5rem, 31vw, 8rem);
+  }
+
+  .heroE__dato {
+    top: calc(100% + 8px);
+    bottom: auto;
+    right: 6px;
+    margin: 0;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+  }
+
+  .heroE__recorte {
+    width: auto;
+    height: min(68svh, 560px);
+    max-width: 145vw;
+    bottom: -7vh;
+  }
+
+  .heroE__scroll {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 980px) {
+  .heroE__escena::after {
+    height: 16%;
+  }
+}
+
+@media (max-width: 560px) {
+  .heroE,
+  .heroE__marco,
+  .heroE__escena {
+    min-height: 64svh;
+  }
+
+  .heroE__marca {
+    top: 25%;
+  }
+
+  .heroE__letra {
+    font-size: clamp(3.1rem, 22vw, 5.6rem);
+  }
+
+  .heroE__recorte {
+    height: min(46svh, 380px);
+    max-width: 108vw;
+    bottom: -2vh;
+  }
+
+  .heroE__escena::after {
+    height: 12%;
+  }
+
+  .heroE__scroll {
+    bottom: 10px;
+    width: 36px;
+    height: 36px;
+  }
+}
+
+@media (max-width: 980px) {
+  .heroE,
+  .heroE__marco,
+  .heroE__escena {
+    min-height: 70svh;
+  }
+
+  .heroE__marca {
+    top: 18%;
+  }
+
+  .heroE__letra {
+    font-size: clamp(4.4rem, 17vw, 8.3rem);
+    letter-spacing: -0.052em;
+  }
+
+  .heroE__dato {
+    display: none;
+  }
+
+  .heroE__recorte {
+    height: min(54svh, 540px);
+    max-width: 90vw;
+    bottom: -4vh;
+  }
+}
+
+@media (max-width: 560px) {
+  .heroE,
+  .heroE__marco,
+  .heroE__escena {
+    min-height: 74svh;
+  }
+
+  .heroE__marca {
+    top: 25%;
+  }
+
+  .heroE__letra {
+    font-size: clamp(3.6rem, 25vw, 6.4rem);
+  }
+
+  .heroE__recorte {
+    height: min(52svh, 430px);
+    max-width: 118vw;
+    bottom: -4vh;
+  }
+
+  .heroE__scroll {
+    bottom: 16px;
+  }
+}
+
+/* Correccion final mobile/tablet: vuelve al hero alto y cinematografico previo. */
+@media (max-width: 980px) {
+  .heroE,
+  .heroE__marco,
+  .heroE__escena {
+    min-height: 100svh;
+  }
+
+  .heroE__escena {
+    padding-top: clamp(72px, 10vh, 104px);
+  }
+
+  .heroE__marca {
+    top: 25%;
+    inset-inline: 8px;
+    bottom: auto;
+  }
+
+  .heroE__letra {
+    font-size: clamp(4.6rem, 26vw, 9.2rem);
+    letter-spacing: -0.045em;
+  }
+
+  .heroE__dato {
+    display: block;
+    top: 100%;
+    bottom: auto;
+    right: clamp(4px, 1vw, 16px);
+    max-width: none;
+    margin-top: clamp(10px, 1.6vw, 20px);
+    font-size: clamp(0.7rem, 1vw, 0.85rem);
+    letter-spacing: 0.16em;
+  }
+
+  .heroE__recorte {
+    width: auto;
+    height: min(80svh, 780px);
+    max-width: 130vw;
+    bottom: 0;
+  }
+
+  .heroE__escena::after {
+    height: 24%;
+  }
+
+  .heroE__scroll {
+    bottom: clamp(28px, 5vh, 52px);
+    width: 44px;
+    height: 44px;
+  }
+}
+
+@media (max-width: 560px) {
+  .heroE__escena {
+    padding-top: 86px;
+  }
+
+  .heroE__marca {
+    inset-inline: 6px;
+    top: auto;
+    bottom: 102vw;
+  }
+
+  .heroE__letra {
+    font-size: clamp(4.4rem, 33vw, 9rem);
+  }
+
+  .heroE__dato {
+    top: auto;
+    bottom: 100%;
+    right: 4px;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+  }
+
+  .heroE__recorte {
+    width: 100vw;
+    height: auto;
+    max-width: none;
+    bottom: 0;
+  }
+}
+
+
+
+/* En tema oscuro el hero conserva el cielo limpio, igual que en tema claro. */
+[data-theme='oscuro'] .heroE {
+  background:
+    linear-gradient(180deg, rgba(246, 247, 245, 0.02), rgba(246, 247, 245, 0.04) 72%, #f6f7f5 100%),
+    url('/img/cielo-hero.webp') center 35% / cover no-repeat;
+}
+
+[data-theme='oscuro'] .heroE::before {
+  background:
+    linear-gradient(90deg, rgba(246, 247, 245, 0.06), transparent 18%, transparent 82%, rgba(246, 247, 245, 0.06)),
+    linear-gradient(180deg, transparent 0%, transparent 76%, rgba(246, 247, 245, 0.34) 100%);
+}
+
+/* La marca grande del hero queda blanca en ambos temas. */
+.heroE__letra,
+html[data-theme='oscuro'] .heroE__letra {
+  color: #f6f7f5;
+  text-shadow: 0 16px 38px rgba(0, 0, 0, 0.22);
 }

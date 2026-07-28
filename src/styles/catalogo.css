@@ -2,20 +2,21 @@
 .catalogo {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
-  margin-top: 8px;
+  gap: 18px;
+  margin-top: 12px;
 }
 .catalogo__filtros {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 32px;
+  gap: 8px;
+  margin-bottom: 30px;
 }
 .catalogo__filtro {
-  padding: 9px 18px;
+  min-height: 38px;
+  padding: 8px 15px;
   border-radius: 999px;
-  border: 1.5px solid var(--borde);
-  font-size: 0.88rem;
+  border: 1px solid var(--borde);
+  font-size: 0.84rem;
   font-weight: 600;
   color: var(--text-suave);
   transition: background var(--transicion), color var(--transicion), border-color var(--transicion);
@@ -37,15 +38,17 @@
   overflow: hidden;
   background: var(--surface);
   border: 1px solid var(--borde);
-  transition: transform var(--transicion), box-shadow var(--transicion);
+  min-height: 100%;
+  transition: transform var(--transicion), border-color var(--transicion), box-shadow var(--transicion);
 }
 .catalogo-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--sombra-fuerte);
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--text) 38%, var(--borde));
+  box-shadow: var(--sombra);
 }
 .catalogo-card__foto {
   position: relative;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
 }
 .catalogo-card__foto img {
@@ -59,27 +62,27 @@
 }
 .catalogo-card__categoria {
   position: absolute;
-  top: 16px;
-  left: 16px;
+  top: 14px;
+  left: 14px;
   background: rgba(10, 10, 12, 0.6);
   backdrop-filter: blur(4px);
   color: #fff;
   font-family: var(--font-dato);
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   padding: 5px 12px;
   border-radius: 999px;
 }
 .catalogo-card__cuerpo {
-  padding: 18px 20px 22px;
+  padding: 18px;
   display: flex;
   flex-direction: column;
   gap: 6px;
   flex: 1;
 }
 .catalogo-card__titulo {
-  font-size: 1.12rem;
+  font-size: 1.05rem;
 }
 .catalogo-card__detalle {
   color: var(--text-suave);

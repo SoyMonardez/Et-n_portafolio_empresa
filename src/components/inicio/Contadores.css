@@ -1,14 +1,15 @@
 .contadores {
-  padding: clamp(48px, 7vw, 80px) 0;
-  background: var(--surface);
+  padding: clamp(54px, 7vw, 86px) 0;
+  background: color-mix(in srgb, var(--surface) 72%, var(--bg));
   border-block: 1px solid var(--borde);
 }
 .contadores__grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  gap: 0;
 }
 .contador {
-  padding: 8px clamp(12px, 3vw, 32px);
+  padding: 4px clamp(14px, 3vw, 34px);
   border-left: 1px solid var(--borde);
 }
 .contador:first-child {
@@ -19,9 +20,9 @@
   display: block;
   font-family: var(--font-titulo);
   font-weight: 900;
-  font-size: clamp(2.8rem, 6.5vw, 4.6rem);
+  font-size: clamp(3rem, 7vw, 5.4rem);
   line-height: 1;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
   color: var(--text);
 }
 .contador__sufijo {
@@ -33,20 +34,36 @@
 }
 .contador__etiqueta {
   display: block;
-  margin-top: 12px;
+  margin-top: 10px;
   color: var(--text-suave);
   font-family: var(--font-dato);
-  font-size: 0.8rem;
-  letter-spacing: 0.04em;
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
 }
 
 @media (max-width: 720px) {
+  .contadores {
+    padding-block: 38px;
+  }
+
   .contadores__grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 32px 0;
+    gap: 24px 0;
   }
   .contador:nth-child(odd) {
     border-left: none;
     padding-left: 0;
+  }
+
+  .contador {
+    padding-right: 18px;
+  }
+
+  .contador__numero {
+    font-size: clamp(2.6rem, 16vw, 4.6rem);
+  }
+
+  .contador__etiqueta {
+    max-width: 14ch;
   }
 }

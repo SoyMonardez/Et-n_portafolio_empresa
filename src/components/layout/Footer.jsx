@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+﻿import { Link } from 'react-router-dom'
 import { FiInstagram, FiFacebook, FiPhone, FiMail, FiMapPin } from 'react-icons/fi'
 import { NAV } from '../../config/rutas.js'
 import useConfig from '../../hooks/useConfig.js'
@@ -11,11 +11,10 @@ export default function Footer() {
   return (
     <footer className="footer">
       <div className="contenedor footer__grid">
-        <div className="footer__col">
-          <span className="footer__marca">ETÁN</span>
+        <div className="footer__col footer__col--brand">
+          <span className="footer__marca" data-no-traducir>ETAN</span>
           <p className="footer__texto">
-            Empresa constructora de San Juan. Demolición, piedra bola, veredas,
-            obra civil y alquiler de maquinaria. Más de 20 años de trayectoria.
+            Constructora de San Juan con experiencia en demolicion, veredas, obra civil, piedra bola y apoyo con maquinaria para distintos tipos de obra.
           </p>
           <div className="footer__redes">
             {cfg.instagram && (
@@ -27,8 +26,8 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="footer__col">
-          <h3 className="footer__titulo">Páginas</h3>
+        <div className="footer__col footer__col--nav">
+          <h3 className="footer__titulo">Paginas</h3>
           {NAV.map((item) => (
             <Link key={item.ruta} to={item.ruta} className="footer__enlace">
               {item.texto}
@@ -36,7 +35,7 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="footer__col">
+        <div className="footer__col footer__col--contacto">
           <h3 className="footer__titulo">Contacto</h3>
           <p className="footer__dato"><FiPhone /> {cfg.telefono || 'A confirmar'}</p>
           <p className="footer__dato"><FiMail /> {cfg.email || 'A confirmar'}</p>
@@ -45,8 +44,8 @@ export default function Footer() {
       </div>
 
       <div className="contenedor footer__base">
-        <span>© {anio} Etán. Todos los derechos reservados.</span>
-        <Link to="/legal" className="footer__legal">Política de privacidad y cookies</Link>
+        <span>{`© ${anio} Etan Construcciones`}</span>
+        <Link to="/legal" className="footer__legal">Politica de privacidad y cookies</Link>
       </div>
     </footer>
   )
