@@ -19,7 +19,7 @@ export default function Nosotros() {
 
   return (
     <>
-      <Encabezado titulo="Sobre Etán" bajada="Más de 20 años construyendo en San Juan." />
+      <Encabezado etiqueta="Nosotros" titulo="Sobre Etán" bajada="Más de 20 años construyendo en San Juan." />
 
       <section className="seccion contenedor nosotros__intro">
         <Aparecer className="nosotros__foto">

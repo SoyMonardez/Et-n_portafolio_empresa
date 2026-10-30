@@ -49,7 +49,7 @@ export default function Contacto() {
 
   return (
     <>
-      <Encabezado titulo="Contacto" bajada="Escribinos y te respondemos a la brevedad." />
+      <Encabezado etiqueta="Contacto" titulo="Contacto" bajada="Escribinos y te respondemos a la brevedad." />
       <section className="seccion contenedor contacto__grid">
         <div className="contacto__datos">
           {DATOS_CONTACTO.map(({ icono: Icono, etiqueta, valor }) => (

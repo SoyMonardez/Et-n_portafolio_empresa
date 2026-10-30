@@ -1,15 +1,15 @@
-import Aparecer from './Aparecer.jsx'
+import { Etiqueta, TextoRevelado } from '../papel/Piezas.jsx'
 import './Encabezado.css'
 
-// Encabezado simple para el tope de cada página interna.
-export default function Encabezado({ titulo, bajada }) {
+// Encabezado de cada página interna: etiqueta mono, título gigante
+// que aparece palabra por palabra y la bajada a la derecha.
+export default function Encabezado({ titulo, bajada, etiqueta = 'Etán' }) {
   return (
     <section className="encabezado">
-      <div className="contenedor">
-        <Aparecer>
-          <h1 className="encabezado__titulo">{titulo}</h1>
-          {bajada && <p className="encabezado__bajada">{bajada}</p>}
-        </Aparecer>
+      <Etiqueta>{etiqueta}</Etiqueta>
+      <div className="pp-grilla">
+        <TextoRevelado como="h1" className="encabezado__titulo">{titulo}</TextoRevelado>
+        {bajada && <p className="pp-lede encabezado__bajada">{bajada}</p>}
       </div>
     </section>
   )

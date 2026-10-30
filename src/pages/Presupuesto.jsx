@@ -48,7 +48,7 @@ export default function Presupuesto() {
   if (enviado) {
     return (
       <>
-        <Encabezado titulo="Solicitar presupuesto" />
+        <Encabezado etiqueta="Presupuesto" titulo="Solicitar presupuesto" />
         <section className="seccion contenedor" style={{ maxWidth: 640 }}>
           <Aparecer className="formE__exito">
             <span className="formE__exito-icono"><FiCheck /></span>
@@ -64,7 +64,7 @@ export default function Presupuesto() {
 
   return (
     <>
-      <Encabezado
+      <Encabezado etiqueta="Presupuesto"
         titulo="Solicitar presupuesto"
         bajada="Contanos qué necesitás y te preparamos un presupuesto sin cargo."
       />

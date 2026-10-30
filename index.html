@@ -4,14 +4,21 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#f4f3f0" />
+    <meta name="theme-color" content="#fcfaf5" />
 
-    <!-- Tipografías: Archivo (títulos), Fraunces (serif itálica de acento),
-         Hanken Grotesk (texto), Spline Sans Mono (datos) -->
+    <!-- Tipografías del sitio: Host Grotesk (texto) y Sometype Mono (datos).
+         Van primero porque son las de la portada. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;500&family=Sometype+Mono:wght@400&display=swap"
+    />
+    <!-- Tipografías del panel admin: se cargan sin frenar el primer pintado. -->
+    <link
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
       href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,400;1,9..144,500;1,9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&family=Spline+Sans+Mono:wght@500;600&display=swap"
     />
 
@@ -20,9 +27,66 @@
       name="description"
       content="Etán: empresa constructora de San Juan con más de 20 años de trayectoria en demolición, piedra bola, veredas y obra civil. Alquiler de maquinaria y presupuestos sin cargo."
     />
+
+    <!-- Portada estática mínima: es lo primero que se pinta, antes de que
+         cargue el JavaScript. React la reemplaza por la real (mismas medidas). -->
+    <style>
+      html, body { margin: 0; background: #fcfaf5; }
+      .pp-previo {
+        --tam: 390;
+        --u: clamp(0.45px, calc(100vw / var(--tam)), 1.2px);
+        --b: calc(20 * var(--u));
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        height: 100svh;
+        min-height: 480px;
+        padding: var(--b);
+        color: #0f0e0c;
+        font-family: 'Host Grotesk', ui-sans-serif, system-ui, sans-serif;
+        letter-spacing: -0.02em;
+        -webkit-font-smoothing: antialiased;
+      }
+      .pp-previo { position: relative; }
+      .pp-previo__nav { position: absolute; inset: var(--b) var(--b) auto; display: flex; align-items: center; justify-content: space-between; height: max(34px, calc(40 * var(--u))); font-size: max(15px, calc(16 * var(--u))); font-weight: 500; }
+      .pp-previo__links { display: none; gap: calc(30 * var(--u)); font-size: max(14px, calc(16 * var(--u))); }
+      .pp-previo__boton { display: none; width: calc(260 * var(--u)); min-width: 180px; height: max(34px, calc(40 * var(--u))); background: #0f0e0c; }
+      .pp-previo__centro { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: calc(10 * var(--u)); }
+      .pp-previo__bloque { width: calc(120 * var(--u)); aspect-ratio: 18 / 13; background: #0f0e0c; }
+      .pp-previo__titulo { font-size: calc(130 * var(--u)); line-height: 0.9; font-weight: 500; letter-spacing: -0.045em; }
+      @media (min-width: 420px) { .pp-previo__boton { display: block; } }
+      @media (min-width: 650px) {
+        .pp-previo { --tam: 1440; --b: calc(40 * var(--u)); }
+        .pp-previo__centro { flex-direction: row; gap: calc(14 * var(--u)); }
+        .pp-previo__bloque { width: calc(300 * var(--u)); }
+        .pp-previo__titulo { font-size: calc(300 * var(--u)); }
+      }
+      @media (min-width: 900px) {
+        .pp-previo__links { display: flex; }
+        .pp-previo__der { display: flex; align-items: center; gap: calc(60 * var(--u)); }
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div class="pp-previo" aria-hidden="true">
+        <div class="pp-previo__nav">
+          <span>Etán</span>
+          <span class="pp-previo__der">
+            <span class="pp-previo__links"><span>Obras</span><span>Servicios</span><span>Maquinaria</span><span>Nosotros</span><span>Contacto</span></span>
+            <span class="pp-previo__boton"></span>
+          </span>
+        </div>
+        <div class="pp-previo__centro">
+          <div class="pp-previo__bloque"></div>
+          <span class="pp-previo__titulo">Etán</span>
+        </div>
+      </div>
+    </div>
+    <script>
+      // La portada estática solo tiene sentido en la portada.
+      if (location.pathname !== "/") document.querySelector(".pp-previo").remove()
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

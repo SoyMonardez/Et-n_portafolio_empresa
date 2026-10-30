@@ -9,7 +9,7 @@ export default function Legal() {
   })
   return (
     <>
-      <Encabezado
+      <Encabezado etiqueta="Legal"
         titulo="Política de privacidad y cookies"
         bajada="Te contamos en palabras simples qué información usamos y para qué."
       />
