@@ -1,11 +1,11 @@
 import { Suspense, lazy } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import Layout from './components/layout/Layout.jsx'
-import IrArriba from './components/util/IrArriba.jsx'
 import Analitica from './components/util/Analitica.jsx'
 
-// Carga diferida: cada página se descarga solo cuando se visita.
-const Inicio = lazy(() => import('./pages/Inicio.jsx'))
+// La portada va en el paquete principal para que se pinte de entrada;
+// el resto de las páginas se descarga solo cuando se visita.
+import Inicio from './pages/Inicio.jsx'
 const Servicios = lazy(() => import('./pages/Servicios.jsx'))
 const Obras = lazy(() => import('./pages/Obras.jsx'))
 const Maquinaria = lazy(() => import('./pages/Maquinaria.jsx'))
@@ -18,7 +18,8 @@ const Admin = lazy(() => import('./pages/Admin.jsx'))
 const NoEncontrada = lazy(() => import('./pages/NoEncontrada.jsx'))
 
 function Cargando() {
-  return <div className="cargando" aria-busy="true">Cargando…</div>
+  // Papel vacío mientras llega la página: sin texto ni parpadeo.
+  return <div className="cargando" aria-busy="true" aria-label="Cargando" />
 }
 
 export default function App() {
@@ -35,7 +36,6 @@ export default function App() {
 
   return (
     <Layout>
-      <IrArriba />
       <Analitica />
       <Suspense fallback={<Cargando />}>
         <Routes>

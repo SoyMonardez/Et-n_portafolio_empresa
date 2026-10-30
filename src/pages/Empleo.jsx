@@ -56,7 +56,7 @@ export default function Empleo() {
 
   return (
     <>
-      <Encabezado
+      <Encabezado etiqueta="Empleo"
         titulo="Trabajá con nosotros"
         bajada="Sumate a nuestro equipo. Mirá las búsquedas activas y dejanos tu currículum."
       />

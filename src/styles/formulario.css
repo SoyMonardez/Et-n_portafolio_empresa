@@ -1,65 +1,75 @@
 /* Estilo compartido para los formularios públicos (presupuesto, contacto,
-   postulación). Pensado para que se note claro qué hay que completar. */
+   postulación). Etiquetas mono y campos de línea, como una planilla. */
 .formE {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
+  gap: 28px 24px;
 }
 .formE__campo {
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: 8px;
 }
 .formE__campo--ancho {
   grid-column: 1 / -1;
 }
 .formE__campo label {
-  font-size: 0.88rem;
-  font-weight: 600;
+  font-family: var(--font-dato);
+  font-size: 10px;
+  text-transform: uppercase;
   color: var(--text);
 }
 .formE__campo--opcional label::after {
   content: ' (opcional)';
-  font-weight: 400;
   color: var(--text-suave);
 }
 .formE input,
 .formE select,
 .formE textarea {
   font: inherit;
-  font-size: 0.98rem;
-  padding: 12px 14px;
-  border-radius: var(--radio-chico);
-  border: 1.5px solid var(--borde);
-  background: var(--surface);
+  font-size: 18px;
+  letter-spacing: -0.02em;
+  padding: 10px 0;
+  border: 0;
+  border-bottom: 1px solid var(--borde);
+  border-radius: 0;
+  background: transparent;
   color: var(--text);
-  transition: border-color var(--transicion);
+  transition: border-color 300ms;
 }
 .formE input:focus-visible,
 .formE select:focus-visible,
 .formE textarea:focus-visible {
-  border-color: var(--brand);
+  outline: none;
+  border-bottom-color: var(--text);
+}
+.formE input[type='file'] {
+  font-size: 14px;
 }
 .formE textarea {
   resize: vertical;
-  min-height: 120px;
+  min-height: 140px;
+  padding: 12px;
+  border: 1px solid var(--borde);
+}
+.formE textarea:focus-visible {
+  border-color: var(--text);
 }
 .formE__enviar {
   grid-column: 1 / -1;
   justify-self: start;
-  margin-top: 6px;
+  margin-top: 8px;
 }
 .formE__ayuda {
   grid-column: 1 / -1;
-  font-size: 0.85rem;
+  font-size: 14px;
   color: var(--text-suave);
 }
 .formE__exito {
   display: flex;
   align-items: flex-start;
-  gap: 14px;
-  padding: 24px;
-  border-radius: var(--radio);
+  gap: 18px;
+  padding: 32px;
   background: var(--surface);
   border: 1px solid var(--borde);
 }
@@ -67,16 +77,15 @@
   flex-shrink: 0;
   display: grid;
   place-items: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: var(--brand);
-  color: var(--surface);
-  font-size: 1.3rem;
+  width: 36px;
+  height: 36px;
+  background: var(--text);
+  color: var(--bg);
+  font-size: 1.1rem;
 }
 .formE__exito h3 {
-  font-size: 1.15rem;
-  margin-bottom: 4px;
+  font-size: 24px;
+  margin-bottom: 6px;
 }
 .formE__exito p {
   color: var(--text-suave);

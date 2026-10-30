@@ -35,7 +35,7 @@ export default function Maquinaria() {
 
   return (
     <>
-      <Encabezado
+      <Encabezado etiqueta="Maquinaria"
         titulo="Alquiler de maquinaria"
         bajada="Equipos propios disponibles para alquilar. Elegí la máquina que necesitás y solicitá el alquiler, te contestamos a la brevedad."
       />

@@ -41,7 +41,7 @@ export default function Obras() {
 
   return (
     <>
-      <Encabezado
+      <Encabezado etiqueta="Obras"
         titulo="Obras realizadas"
         bajada="Una muestra de los trabajos que llevamos adelante para municipios, empresas y particulares."
       />

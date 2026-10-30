@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { FiArrowRight } from 'react-icons/fi'
 import Encabezado from '../components/util/Encabezado.jsx'
-import Servicios from '../components/inicio/Servicios.jsx'
+import { Servicios } from '../components/papel/Secciones.jsx'
 import Aparecer from '../components/util/Aparecer.jsx'
 import useSeo from '../hooks/useSeo.js'
 
@@ -14,10 +14,11 @@ export default function ServiciosPagina() {
   return (
     <>
       <Encabezado
+        etiqueta="Servicios"
         titulo="Nuestros servicios"
         bajada="Soluciones de construcción y demolición con maquinaria propia y un equipo con experiencia en obra pública y privada."
       />
-      <Servicios />
+      <Servicios conTitulo={false} />
       <section className="contenedor" style={{ paddingBottom: '90px' }}>
         <Aparecer className="cierre">
           <div className="cierre__texto">
